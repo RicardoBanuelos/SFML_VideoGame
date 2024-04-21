@@ -22,3 +22,8 @@ void GameObject::draw(sf::RenderWindow& window)
 {
 	window.draw(mSprite);
 }
+
+sf::Vector2f GameObject::position()
+{
+	return mPosition;
+}

@@ -9,6 +9,8 @@ public:
 
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
+
+	sf::Vector2f position();
 protected:
 	sf::Vector2f mPosition;
 	sf::Vector2f mSize;

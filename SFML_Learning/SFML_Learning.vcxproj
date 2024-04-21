@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Bullet\Bullet.cpp" />
     <ClCompile Include="Source\Character\Character.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -142,6 +143,7 @@
     <Image Include="Textures\dirt.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Bullet\Bullet.h" />
     <ClInclude Include="Headers\Character\Character.h" />
     <ClInclude Include="Headers\GameObject\GameObject.h" />
     <ClInclude Include="Headers\Player\Player.h" />

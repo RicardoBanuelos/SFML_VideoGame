@@ -13,7 +13,7 @@ Character::~Character()
 
 void Character::update(float deltaTime)
 {
-
+	mSprite.setPosition(mPosition);
 }
 
 void Character::draw(sf::RenderWindow& window)
@@ -24,5 +24,4 @@ void Character::draw(sf::RenderWindow& window)
 void Character::move(sf::Vector2f direction)
 {
 	mPosition += direction;
-	mSprite.setPosition(mPosition);
 }

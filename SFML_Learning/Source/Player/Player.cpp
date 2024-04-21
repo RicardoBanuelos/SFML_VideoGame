@@ -10,7 +10,7 @@ Player::~Player() {}
 
 void Player::update(float deltaTime)
 {
-	
+	Character::update(deltaTime); 
 }
 
 void Player::draw(sf::RenderWindow& window)
