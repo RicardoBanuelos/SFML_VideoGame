@@ -2,10 +2,11 @@
 #include <vector>
 #include <math.h>
 
-#include <SFML/Graphics.hpp>
+#include "Player/Player.h"
 
 bool isInBounds(int x, int y);
 void normalize(sf::Vector2f& vector);
+void movePlayer(Player& player);
 
 int main()
 {
@@ -29,22 +30,9 @@ int main()
 		return -1;
 	}
 
-	sf::Sprite playerSprite(playerTexture);
-	playerSprite.setTextureRect(sf::IntRect(64 * 6, 64 * 2, 64, 64));
-	playerSprite.setPosition(sf::Vector2f((window.getSize().x / 2), (window.getSize().y / 2)));
-#pragma endregion
-
-#pragma region Load Skeleton
-	sf::Texture skeletonTexture;
-	if (!skeletonTexture.loadFromFile("assets/Skeleton/Textures/spritesheet.png"))
-	{
-		std::cout << "Failed to load skeleton spritesheet!" << std::endl;
-		return -1;
-	}
-
-	sf::Sprite skeletonSprite(skeletonTexture);
-	skeletonSprite.setTextureRect(sf::IntRect(64 * 4, 64 * 2, 64, 64));
-	skeletonSprite.scale(sf::Vector2f(3, 3));
+	sf::Vector2f playerPosition(window.getSize().x / 2, window.getSize().y / 2);
+	sf::Vector2f playerSize(64, 64);
+	Player player(playerPosition, playerSize, playerTexture);
 #pragma endregion
 
 #pragma region Main Loop
@@ -59,7 +47,7 @@ int main()
 				window.close();
 			}
 
-			if (event.type == sf::Event::MouseButtonPressed)
+			/*if (event.type == sf::Event::MouseButtonPressed)
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
@@ -78,30 +66,12 @@ int main()
 					normalize(bulletDirection);
 					bulletDirections.push_back(bulletDirection);
 				}
-			}
+			}*/
 		}
 #pragma endregion
 
 #pragma region Movement
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			playerSprite.move(sf::Vector2f(0, -0.2));
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			playerSprite.move(sf::Vector2f(-0.2, 0));
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			playerSprite.move(sf::Vector2f(0, 0.2));
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			playerSprite.move(sf::Vector2f(0.2, 0));
-		}
+		movePlayer(player);
 #pragma endregion
 
 #pragma region Bullet Movement
@@ -113,8 +83,7 @@ int main()
 
 #pragma region Window Bottom Methods
 		window.clear(sf::Color::Black);
-		window.draw(playerSprite);
-		window.draw(skeletonSprite);
+		player.draw(window);
 		
 		for (int i = 0; i < bulletShapes.size(); ++i)
 		{
@@ -140,4 +109,27 @@ void normalize(sf::Vector2f& vector)
 
 	vector.x /= magnitude;
 	vector.y /= magnitude;
+}
+
+void movePlayer(Player& player)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		player.move(sf::Vector2f(0, -0.2));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		player.move(sf::Vector2f(-0.2, 0));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		player.move(sf::Vector2f(0, 0.2));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		player.move(sf::Vector2f(0.2, 0));
+	}
 }

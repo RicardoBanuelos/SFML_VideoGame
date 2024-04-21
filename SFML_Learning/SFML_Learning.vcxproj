@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Ricardo\Documents\GitHub\SFML_VideoGame\SFML_Learning\Headers;C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Ricardo\Documents\GitHub\SFML_VideoGame\SFML_Learning\Headers;C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,10 +133,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Character\Character.cpp" />
+    <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\dirt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers\Character\Character.h" />
+    <ClInclude Include="Headers\GameObject\GameObject.h" />
+    <ClInclude Include="Headers\Player\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
