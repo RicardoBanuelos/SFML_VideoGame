@@ -4,6 +4,7 @@
 
 #include "Player/Player.h"
 #include "Bullet/Bullet.h"
+#include "Camera/Camera.h"
 
 bool isInBounds(int x, int y);
 void normalize(sf::Vector2f& vector);
@@ -17,7 +18,10 @@ int main()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
+
+	Camera camera(window.getSize().x, window.getSize().y);
 #pragma endregion
+
 	
 #pragma region Create Player
 	sf::Texture playerTexture;
@@ -32,7 +36,7 @@ int main()
 	Player player(playerPosition, playerSize, playerTexture);
 #pragma endregion
 
-#pragma Bullet Texture
+#pragma region Bullet Texture
 	sf::Texture bulletsTexture;
 	if (!bulletsTexture.loadFromFile("assets/bullets.png"))
 	{
@@ -41,7 +45,6 @@ int main()
 	}
 #pragma endregion
 
-#pragma region Main Loop
 	while (window.isOpen())
 	{
 #pragma region Events
@@ -66,14 +69,19 @@ int main()
 		}
 #pragma endregion
 
+#pragma region Update
 		movePlayer(player);
 
 		player.update(0);
+		camera.setCenter(player.position().x, player.position().y);
+		window.setView(camera.getView());
 		for (Bullet& bullet : bullets)
 		{
 			bullet.update(0);
 		}
+#pragma endregion
 
+#pragma region Draw
 		window.clear(sf::Color::Black);
 
 		player.draw(window);
@@ -83,8 +91,8 @@ int main()
 		}
 
 		window.display();
-	}
 #pragma endregion
+	}
 
 	return 0;
 }
