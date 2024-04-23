@@ -7,7 +7,6 @@
 #include "Camera/Camera.h"
 
 bool isInBounds(int x, int y);
-void normalize(sf::Vector2f& vector);
 void movePlayer(Player& player);
 
 std::vector<Bullet> bullets;
@@ -22,7 +21,17 @@ int main()
 	Camera camera(window.getSize().x, window.getSize().y);
 #pragma endregion
 
-	
+#pragma region Load Background
+	sf::Texture backgroundTexture;
+	if (!backgroundTexture.loadFromFile("assets/Background/hjm-wasteland.png"))
+	{
+		std::cout << "Failed to load background!" << std::endl;
+		return -1;
+	}
+
+	sf::Sprite backgroundSprite(backgroundTexture);
+#pragma endregion
+
 #pragma region Create Player
 	sf::Texture playerTexture;
 	if (!playerTexture.loadFromFile("assets/Player/Textures/spritesheet.png"))
@@ -82,7 +91,7 @@ int main()
 #pragma endregion
 
 #pragma region Draw
-		window.clear(sf::Color::Black);
+		window.draw(backgroundSprite);
 
 		player.draw(window);
 		for (Bullet& bullet : bullets)
@@ -100,14 +109,6 @@ int main()
 bool isInBounds(int x, int y)
 {
 	return x >= 0 && x < 1280 && y >= 0 && y < 720;
-}
-
-void normalize(sf::Vector2f& vector)
-{
-	float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y);
-
-	vector.x /= magnitude;
-	vector.y /= magnitude;
 }
 
 void movePlayer(Player& player)
