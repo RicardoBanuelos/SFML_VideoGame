@@ -91,6 +91,7 @@ int main()
 #pragma endregion
 
 #pragma region Draw
+		window.clear(sf::Color::Black);
 		window.draw(backgroundSprite);
 
 		player.draw(window);
