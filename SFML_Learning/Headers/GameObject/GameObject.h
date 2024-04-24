@@ -14,5 +14,6 @@ public:
 protected:
 	sf::Vector2f mPosition;
 	sf::Vector2f mSize;
+	sf::Texture mTexture;
 	sf::Sprite mSprite;
 };

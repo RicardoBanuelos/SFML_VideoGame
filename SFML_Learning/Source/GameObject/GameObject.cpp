@@ -3,6 +3,7 @@
 GameObject::GameObject(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture)
 	:	mPosition(position),
 		mSize(size),
+		mTexture(texture),
 		mSprite(texture)
 {
 	mSprite.setPosition(mPosition);
