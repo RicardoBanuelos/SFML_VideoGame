@@ -4,7 +4,7 @@
 
 class GameObject {
 public:
-	GameObject(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture);
+	GameObject(float x, float y, float width, float height, sf::Texture& texture);
 	virtual ~GameObject();
 
 	virtual void update(float deltaTime);
@@ -12,8 +12,7 @@ public:
 
 	sf::Vector2f position();
 protected:
-	sf::Vector2f mPosition;
-	sf::Vector2f mSize;
+	sf::RectangleShape mShape;
 	sf::Texture mTexture;
 	sf::Sprite mSprite;
 };

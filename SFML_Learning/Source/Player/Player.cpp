@@ -1,7 +1,7 @@
 #include "Player/Player.h"
 
-Player::Player(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture)
-	:	Character(position, size, texture)
+Player::Player(float x, float y, float width, float height, sf::Texture& texture)
+	:	Character(x, y, width, height, texture)
 {
 	mSprite.setTextureRect(sf::IntRect(64 * 6, 64 * 2, 64, 64));
 }

@@ -4,7 +4,7 @@
 
 class Player : public Character {
 public:
-	Player(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture);
+	Player(float x, float y, float width, float height, sf::Texture& texture);
 	~Player();
 
 	virtual void update(float deltaTime) override;

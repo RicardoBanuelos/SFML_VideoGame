@@ -1,12 +1,12 @@
 #include "GameObject/GameObject.h"
 
-GameObject::GameObject(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture)
-	:	mPosition(position),
-		mSize(size),
-		mTexture(texture),
+GameObject::GameObject(float x, float y, float width, float height, sf::Texture& texture)
+	:	mTexture(texture),
 		mSprite(texture)
 {
-	mSprite.setPosition(mPosition);
+	mShape.setPosition(x, y);
+	mShape.setSize(sf::Vector2f(width, height));
+	mSprite.setPosition(x, y);
 }
 
 GameObject::~GameObject()
@@ -26,5 +26,5 @@ void GameObject::draw(sf::RenderWindow& window)
 
 sf::Vector2f GameObject::position()
 {
-	return mPosition;
+	return mShape.getPosition();
 }

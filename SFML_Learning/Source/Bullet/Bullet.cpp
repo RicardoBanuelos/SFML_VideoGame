@@ -2,10 +2,10 @@
 
 #include <math.h>
 
-Bullet::Bullet(sf::Vector2f position, sf::Vector2f size, sf::Vector2f target, sf::Texture& texture)
-	:	GameObject(position, size, texture),
+Bullet::Bullet(float x, float y, float width, float height, sf::Vector2f target, sf::Texture& texture)
+	:	GameObject(x, y, width, height, texture),
 		SPEED(0.5f),
-		mDirection(target - position)
+		mDirection(target - sf::Vector2f(x, y))
 {
 	mSprite.setTextureRect(sf::IntRect(16 * 0, 16 * 0, 16, 16));
 
@@ -18,8 +18,8 @@ Bullet::~Bullet(){}
 
 void Bullet::update(float timeDelta)
 {
-	mPosition += (mDirection * SPEED);
-	mSprite.setPosition(mPosition);
+	mShape.move(mDirection * SPEED);
+	mSprite.setPosition(mShape.getPosition());
 }
 
 void Bullet::draw(sf::RenderWindow& window)

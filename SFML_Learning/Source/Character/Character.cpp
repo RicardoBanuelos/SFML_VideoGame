@@ -1,7 +1,7 @@
 #include "Character/Character.h"
 
-Character::Character(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture)
-	:	GameObject(position, size, texture)
+Character::Character(float x, float y, float width, float height, sf::Texture& texture)
+	:	GameObject(x, y, width, height, texture)
 {
 
 }
@@ -13,7 +13,7 @@ Character::~Character()
 
 void Character::update(float deltaTime)
 {
-	mSprite.setPosition(mPosition);
+	mSprite.setPosition(mShape.getPosition());
 }
 
 void Character::draw(sf::RenderWindow& window)
@@ -23,5 +23,5 @@ void Character::draw(sf::RenderWindow& window)
 
 void Character::move(sf::Vector2f direction)
 {
-	mPosition += direction;
+	mShape.move(direction);
 }

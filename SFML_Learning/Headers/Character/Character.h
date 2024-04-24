@@ -4,7 +4,7 @@
 
 class Character : public GameObject {
 public:
-	Character(sf::Vector2f position, sf::Vector2f size, sf::Texture& texture);
+	Character(float x, float y, float width, float height, sf::Texture& texture);
 	~Character();
 
 	virtual void update(float deltaTime) override;

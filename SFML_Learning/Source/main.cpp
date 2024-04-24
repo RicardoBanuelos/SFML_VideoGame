@@ -40,9 +40,7 @@ int main()
 		return -1;
 	}
 
-	sf::Vector2f playerPosition(window.getSize().x / 2, window.getSize().y / 2);
-	sf::Vector2f playerSize(64, 64);
-	Player player(playerPosition, playerSize, playerTexture);
+	Player player(window.getSize().x / 2, window.getSize().y / 2, 64, 64, playerTexture);
 #pragma endregion
 
 #pragma region Bullet Texture
@@ -71,7 +69,7 @@ int main()
 				{
 					sf::Vector2f mousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 					if (!isInBounds(mousePosition.x, mousePosition.y)) continue;
-					Bullet bullet(player.position(), sf::Vector2f(16, 16), mousePosition, bulletsTexture);
+					Bullet bullet(player.position().x, player.position().y, 16, 16, mousePosition, bulletsTexture);
 					bullets.push_back(bullet);
 				}
 			}

@@ -4,7 +4,7 @@
 
 class Bullet : public GameObject {
 public:
-	Bullet(sf::Vector2f position, sf::Vector2f size, sf::Vector2f target, sf::Texture& texture);
+	Bullet(float x, float y, float width, float height, sf::Vector2f target, sf::Texture& texture);
 	~Bullet();
 
 	virtual void update(float deltaTime) override;
