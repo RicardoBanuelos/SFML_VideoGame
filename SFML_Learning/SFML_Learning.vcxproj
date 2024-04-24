@@ -151,6 +151,7 @@
     <ClInclude Include="Headers\GameObject\GameObject.h" />
     <ClInclude Include="Headers\Player\Player.h" />
     <ClInclude Include="Headers\TextureLoader\TextureLoader.h" />
+    <ClInclude Include="Headers\TextureLoader\TextureStrings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

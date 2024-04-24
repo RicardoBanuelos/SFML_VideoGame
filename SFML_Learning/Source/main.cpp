@@ -5,52 +5,41 @@
 #include "Player/Player.h"
 #include "Bullet/Bullet.h"
 #include "Camera/Camera.h"
+#include "TextureLoader/TextureLoader.h"
+#include "TextureLoader/TextureStrings.h"
+
 
 bool isInBounds(int x, int y);
 void movePlayer(Player& player);
+bool loadTextures(TextureLoader& textureLoader);
 
 std::vector<Bullet> bullets;
 
 int main()
 {
-#pragma region Window Setup
+#pragma region Window Camera and Textures Setup
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
 
 	Camera camera(window.getSize().x, window.getSize().y);
-#pragma endregion
 
-#pragma region Load Background
-	sf::Texture backgroundTexture;
-	if (!backgroundTexture.loadFromFile("assets/Background/hjm-wasteland.png"))
+	TextureLoader textureLoader;
+	if (!loadTextures(textureLoader))
 	{
-		std::cout << "Failed to load background!" << std::endl;
+		std::cout << "Failed loading textures." << std::endl;
 		return -1;
 	}
+#pragma endregion
 
-	sf::Sprite backgroundSprite(backgroundTexture);
+#pragma region Create Background
+	sf::Sprite backgroundSprite(textureLoader.getTexture("background"));
 #pragma endregion
 
 #pragma region Create Player
-	sf::Texture playerTexture;
-	if (!playerTexture.loadFromFile("assets/Player/Textures/spritesheet.png"))
-	{
-		std::cout << "Failed to load player spritesheet!" << std::endl;
-		return -1;
-	}
-
-	Player player(window.getSize().x / 2, window.getSize().y / 2, 64, 64, playerTexture);
+	Player player(window.getSize().x / 2, window.getSize().y / 2, 64, 64, textureLoader.getTexture("player"));
 #pragma endregion
 
-#pragma region Bullet Texture
-	sf::Texture bulletsTexture;
-	if (!bulletsTexture.loadFromFile("assets/bullets.png"))
-	{
-		std::cout << "Failed to load player spritesheet!" << std::endl;
-		return -1;
-	}
-#pragma endregion
 
 	while (window.isOpen())
 	{
@@ -69,7 +58,7 @@ int main()
 				{
 					sf::Vector2f mousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 					if (!isInBounds(mousePosition.x, mousePosition.y)) continue;
-					Bullet bullet(player.position().x, player.position().y, 16, 16, mousePosition, bulletsTexture);
+					Bullet bullet(player.position().x, player.position().y, 16, 16, mousePosition, textureLoader.getTexture("bullet"));
 					bullets.push_back(bullet);
 				}
 			}
@@ -131,4 +120,14 @@ void movePlayer(Player& player)
 	{
 		player.move(sf::Vector2f(0.2, 0));
 	}
+}
+
+bool loadTextures(TextureLoader& textureLoader)
+{
+	for (int i = 0; i < TextureStrings::SIZE; ++i)
+	{
+		if (!textureLoader.loadTexture(TextureStrings::names[i], TextureStrings::paths[i])) return false;
+	}
+
+	return true;
 }
