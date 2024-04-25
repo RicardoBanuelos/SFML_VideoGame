@@ -1,6 +1,7 @@
 #include "Player/Player.h"
 
 #include <iostream>
+#include <math.h>
 
 #include "TextureLoader/TextureLoader.h"
 #include "MousePosition/MousePosition.h"
@@ -11,7 +12,15 @@ Player::Player(float x, float y, float width, float height, sf::Texture& texture
 	:	Character(x, y, width, height, texture)
 {
 	sf::Vector2i textureSize = mSprite.getTextureRect().getSize();
+
+	mShape.setFillColor(sf::Color::Transparent);
+	mShape.setOutlineColor(sf::Color::Red);
+	mShape.setOutlineThickness(1.0f);
+	mShape.setOrigin(textureSize.x / 2.f, textureSize.y / 2.f);
+
 	mSprite.setOrigin(textureSize.x / 2.f, textureSize.y / 2.f);
+
+	bulletStartPoint.setSize(sf::Vector2f(10, 8));
 }
 
 Player::~Player() {}
@@ -19,6 +28,19 @@ Player::~Player() {}
 void Player::update(float deltaTime)
 {
 	checkKeyInput(deltaTime);
+
+	const float M_PI = 3.14159;
+	const float offsetX = 115;
+	const float offsetY = 52;
+
+	float x2 = offsetX * cos(mShape.getRotation() * (M_PI / 180.0)) - offsetY * sin(mShape.getRotation() * (M_PI / 180.0));
+	float y2 = offsetX * sin(mShape.getRotation() * (M_PI / 180.0)) + offsetY * cos(mShape.getRotation() * (M_PI / 180.0));
+
+	float finalX = mShape.getPosition().x + x2;
+	float finalY = mShape.getPosition().y + y2;
+
+	bulletStartPoint.setPosition(sf::Vector2f(finalX, finalY));
+
 	rotate();
 	shoot(deltaTime);
 
@@ -32,6 +54,8 @@ void Player::update(float deltaTime)
 
 void Player::draw(sf::RenderWindow& window)
 {
+	window.draw(mShape);
+	window.draw(bulletStartPoint);
 	Character::draw(window);
 
 	for (Bullet& bullet : mBullets)
@@ -75,7 +99,9 @@ void Player::rotate()
 	sf::Vector2f mousePosition = MousePosition::get();
 	float angle = atan2(mousePosition.y - mShape.getPosition().y, mousePosition.x - mShape.getPosition().x) * 180 / 3.14159265358979323846;
 
-	mSprite.setRotation(angle - 20.0f);
+	mSprite.setRotation(angle);
+	mShape.setRotation(angle);
+	bulletStartPoint.setRotation(angle);
 }
 
 void Player::shoot(float deltaTime)
@@ -88,7 +114,7 @@ void Player::shoot(float deltaTime)
 		accumTime = 0;
 		sf::Vector2f mousePosition = MousePosition::get();
 
-		Bullet bullet(mShape.getPosition().x, mShape.getPosition().y, 32, 32, mousePosition, TextureLoader::getTexture("Bullet"));
+		Bullet bullet(mShape.getPosition().x + 100.0f, mShape.getPosition().y + 40.f, 32, 32, mousePosition, TextureLoader::getTexture("Bullet"));
 		mBullets.push_back(bullet);
 	}
 }

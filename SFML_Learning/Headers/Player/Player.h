@@ -20,5 +20,6 @@ private:
 	void rotate();
 	void shoot(float deltaTime);
 
+	sf::RectangleShape bulletStartPoint;
 	std::vector<Bullet> mBullets;
 };
