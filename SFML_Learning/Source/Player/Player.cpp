@@ -3,7 +3,7 @@
 Player::Player(float x, float y, float width, float height, sf::Texture& texture)
 	:	Character(x, y, width, height, texture)
 {
-	mSprite.setTextureRect(sf::IntRect(64 * 6, 64 * 2, 64, 64));
+	
 }
 
 Player::~Player() {}

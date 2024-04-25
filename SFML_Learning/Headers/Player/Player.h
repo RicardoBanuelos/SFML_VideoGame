@@ -5,7 +5,7 @@
 class Player : public Character {
 public:
 	Player(float x, float y, float width, float height, sf::Texture& texture);
-	~Player();
+	virtual ~Player();
 
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;

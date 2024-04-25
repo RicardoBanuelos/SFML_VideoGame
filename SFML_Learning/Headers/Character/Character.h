@@ -5,7 +5,7 @@
 class Character : public GameObject {
 public:
 	Character(float x, float y, float width, float height, sf::Texture& texture);
-	~Character();
+	virtual ~Character();
 
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
