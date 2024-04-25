@@ -9,7 +9,8 @@ public:
 
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
+
+	void setRotation(float angle);
 private:
-	const float SPEED;
 	sf::Vector2f mDirection;
 };

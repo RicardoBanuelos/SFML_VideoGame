@@ -15,7 +15,7 @@ public:
 private:
 	bool loadAllTextures();
 
-	void update();
+	void update(float deltaTime);
 	void draw();
 
 	void pollEvents();

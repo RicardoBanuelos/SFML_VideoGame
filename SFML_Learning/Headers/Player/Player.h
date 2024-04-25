@@ -2,6 +2,10 @@
 
 #include "Character/Character.h"
 
+#include "Bullet/Bullet.h"
+
+#include <vector>
+
 class Player : public Character {
 public:
 	Player();
@@ -12,7 +16,9 @@ public:
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void move(sf::Vector2f direction) override;
 private:
-	void move(float deltaTime);
-	void rotate(float deltaTime);
+	void checkKeyInput(float deltaTime);
+	void rotate();
 	void shoot(float deltaTime);
+
+	std::vector<Bullet> mBullets;
 };

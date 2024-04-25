@@ -26,9 +26,13 @@ Game::~Game()
 
 void Game::run()
 {
+	sf::Clock gameClock;
+
 	while (mWindow->isOpen())
 	{
-		update();
+		float deltaTime = gameClock.restart().asSeconds();
+
+		update(deltaTime);
 		draw();
 	}
 }
@@ -48,11 +52,11 @@ bool Game::loadAllTextures()
 	return true;
 }
 
-void Game::update()
+void Game::update(float deltaTime)
 {
 	pollEvents();
 	MousePosition::update(*mWindow);
-	mPlayer.update(0);
+	mPlayer.update(deltaTime);
 }
 
 void Game::draw()

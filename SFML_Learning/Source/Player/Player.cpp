@@ -1,5 +1,8 @@
 #include "Player/Player.h"
 
+#include <iostream>
+
+#include "TextureLoader/TextureLoader.h"
 #include "MousePosition/MousePosition.h"
 
 Player::Player() {}
@@ -15,14 +18,26 @@ Player::~Player() {}
 
 void Player::update(float deltaTime)
 {
-	move(deltaTime);
-	rotate(deltaTime);
+	checkKeyInput(deltaTime);
+	rotate();
+	shoot(deltaTime);
+
+	for (Bullet& bullet : mBullets)
+	{
+		bullet.update(deltaTime);
+	}
+
 	Character::update(deltaTime); 
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
 	Character::draw(window);
+
+	for (Bullet& bullet : mBullets)
+	{
+		bullet.draw(window);
+	}
 }
 
 void Player::move(sf::Vector2f direction)
@@ -30,30 +45,32 @@ void Player::move(sf::Vector2f direction)
 	Character::move(direction);
 }
 
-void Player::move(float deltaTime)
+void Player::checkKeyInput(float deltaTime)
 {
+	const float SPEED = 1000.0f;
+	sf::Vector2f direction;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		mShape.move(sf::Vector2f(0, -0.2));
+		direction = sf::Vector2f(0, -SPEED);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		direction = sf::Vector2f(-SPEED, 0);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		direction = sf::Vector2f(0, SPEED);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		direction = sf::Vector2f(SPEED, 0);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		mShape.move(sf::Vector2f(-0.2, 0));
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		mShape.move(sf::Vector2f(0, 0.2));
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		mShape.move(sf::Vector2f(0.2, 0));
-	}
+	move(direction * deltaTime);
 }
 
-void Player::rotate(float deltaTime)
+void Player::rotate()
 {
 	sf::Vector2f mousePosition = MousePosition::get();
 	float angle = atan2(mousePosition.y - mShape.getPosition().y, mousePosition.x - mShape.getPosition().x) * 180 / 3.14159265358979323846;
@@ -63,8 +80,15 @@ void Player::rotate(float deltaTime)
 
 void Player::shoot(float deltaTime)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-	{
+	static float accumTime = 0;
+	accumTime += deltaTime;
 
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && accumTime >= 0.4f)
+	{
+		accumTime = 0;
+		sf::Vector2f mousePosition = MousePosition::get();
+
+		Bullet bullet(mShape.getPosition().x, mShape.getPosition().y, 32, 32, mousePosition, TextureLoader::getTexture("Bullet"));
+		mBullets.push_back(bullet);
 	}
 }
