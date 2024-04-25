@@ -1,13 +1,11 @@
 #include "TextureLoader/TextureLoader.h"
 
-TextureLoader::TextureLoader() {}
-
-TextureLoader::~TextureLoader() {}
+std::unordered_map<std::string, sf::Texture> TextureLoader::mTexturesMap;
 
 bool TextureLoader::loadTexture(const std::string& textureName, const std::string& texturePath)
 {
 	sf::Texture texture;
-	
+
 	if (!texture.loadFromFile(texturePath))
 	{
 		return false;
@@ -19,8 +17,5 @@ bool TextureLoader::loadTexture(const std::string& textureName, const std::strin
 
 sf::Texture& TextureLoader::getTexture(const std::string& textureName)
 {
-	sf::Texture texture;
-	if (mTexturesMap.count(textureName) == 0) return texture;
-
 	return mTexturesMap[textureName];
 }

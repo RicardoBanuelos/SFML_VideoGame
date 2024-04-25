@@ -4,6 +4,7 @@
 
 class Character : public GameObject {
 public:
+	Character();
 	Character(float x, float y, float width, float height, sf::Texture& texture);
 	virtual ~Character();
 

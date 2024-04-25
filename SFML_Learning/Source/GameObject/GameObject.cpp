@@ -1,5 +1,9 @@
 #include "GameObject/GameObject.h"
 
+GameObject::GameObject()
+{
+}
+
 GameObject::GameObject(float x, float y, float width, float height, sf::Texture& texture)
 	:	mTexture(texture),
 		mSprite(texture)
@@ -16,7 +20,7 @@ GameObject::~GameObject()
 
 void GameObject::update(float deltaTime)
 {
-
+	mSprite.setPosition(mShape.getPosition());
 }
 
 void GameObject::draw(sf::RenderWindow& window)

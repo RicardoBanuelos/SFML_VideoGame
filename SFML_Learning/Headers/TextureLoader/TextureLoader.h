@@ -6,11 +6,11 @@
 
 class TextureLoader {
 public:
-	TextureLoader();
-	~TextureLoader();
+	TextureLoader() = delete;
 
-	bool loadTexture(const std::string& textureName, const std::string& texturePath);
-	sf::Texture& getTexture(const std::string& textureName);
+	static bool loadTexture(const std::string& textureName, const std::string& texturePath);
+	static sf::Texture& getTexture(const std::string& textureName);
+
 private:
-	std::unordered_map<std::string, sf::Texture> mTexturesMap;
+	static std::unordered_map<std::string, sf::Texture> mTexturesMap;
 };

@@ -1,7 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <Player/Player.h>
+
+#include "Player/Player.h"
 
 class Game 
 {
@@ -12,10 +13,15 @@ public:
 	void run();
 
 private:
-	void pollEvents();
+	bool loadAllTextures();
+
 	void update();
 	void draw();
 
+	void pollEvents();
+
 	sf::ContextSettings mSettings;
 	sf::RenderWindow* mWindow;
+
+	Player mPlayer;
  };
