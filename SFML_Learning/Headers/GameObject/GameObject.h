@@ -11,6 +11,7 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 
 	sf::Vector2f position();
+	sf::FloatRect globalBounds();
 protected:
 	sf::RectangleShape mShape;
 	sf::Texture mTexture;

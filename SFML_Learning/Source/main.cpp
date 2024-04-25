@@ -11,6 +11,7 @@
 
 bool isInBounds(int x, int y);
 void movePlayer(Player& player);
+
 bool loadTextures(TextureLoader& textureLoader);
 
 std::vector<Bullet> bullets;
@@ -18,11 +19,15 @@ std::vector<Bullet> bullets;
 int main()
 {
 #pragma region Window Camera and Textures Setup
+	sf::Clock gameClock;
+	sf::Clock frameClock;
+
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, settings);
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Fullscreen, settings);
 
 	Camera camera(window.getSize().x, window.getSize().y);
+	camera.zoom(1.5f);
 
 	TextureLoader textureLoader;
 	if (!loadTextures(textureLoader))
@@ -43,38 +48,63 @@ int main()
 
 	while (window.isOpen())
 	{
+#pragma region Delta and Framerate
+		sf::Time deltaTime = frameClock.restart();
+
+		sf::Time frameTime = frameClock.getElapsedTime();
+		sf::Time frameDuration = sf::seconds(1.0f / 60.0f);
+
+		if (frameTime < frameDuration)
+		{
+			sf::sleep(frameDuration - frameDuration);
+		}
+
+#pragma endregion
 #pragma region Events
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed())
+			switch (event.type) 
 			{
-				window.close();
-			}
-
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (event.mouseButton.button == sf::Mouse::Left)
-				{
-					sf::Vector2f mousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
-					if (!isInBounds(mousePosition.x, mousePosition.y)) continue;
-					Bullet bullet(player.position().x, player.position().y, 16, 16, mousePosition, textureLoader.getTexture("bullet"));
-					bullets.push_back(bullet);
-				}
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::KeyPressed:
+					if (event.key.code == sf::Keyboard::Escape)
+						window.close();
+					break;
+				case sf::Event::MouseButtonPressed:
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						sf::Vector2f worldClickPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+						Bullet bullet(player.position().x, player.position().y, 16, 16, worldClickPosition, textureLoader.getTexture("bullet"));
+						bullets.push_back(bullet);
+					}
+					break;
+				default:
+					break;
 			}
 		}
+#pragma endregion
+
+#pragma region CheckCollision
+		//if (player.globalBounds().intersects(anotherObject))
+		//{
+		//	// Do something
+		//}
 #pragma endregion
 
 #pragma region Update
 		movePlayer(player);
 
-		player.update(0);
-		camera.setCenter(player.position().x, player.position().y);
-		window.setView(camera.getView());
+		player.update(deltaTime.asSeconds());
 		for (Bullet& bullet : bullets)
 		{
-			bullet.update(0);
+			bullet.update(deltaTime.asSeconds());
 		}
+
+		camera.setCenter(player.position().x, player.position().y);
+		window.setView(camera.getView());
 #pragma endregion
 
 #pragma region Draw

@@ -1,5 +1,6 @@
 #include "Bullet//Bullet.h"
 
+#include <iostream>
 #include <math.h>
 
 Bullet::Bullet(float x, float y, float width, float height, sf::Vector2f target, sf::Texture& texture)

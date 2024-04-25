@@ -28,3 +28,8 @@ sf::Vector2f GameObject::position()
 {
 	return mShape.getPosition();
 }
+
+sf::FloatRect GameObject::globalBounds()
+{
+	return mShape.getGlobalBounds();
+}
