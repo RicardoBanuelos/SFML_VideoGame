@@ -5,6 +5,8 @@
 #include "Player/Player.h"
 #include "Zombie/Zombie.h"
 
+#include "Camera/Camera.h"
+
 class Game 
 {
 public:
@@ -26,4 +28,6 @@ private:
 
 	Player mPlayer;
 	Zombie mZombie;
+
+	Camera mCamera;
  };

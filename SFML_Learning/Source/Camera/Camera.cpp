@@ -8,6 +8,11 @@ Camera::Camera(float width, float height)
 
 Camera::~Camera() {}
 
+void Camera::follow(sf::Vector2f playerPos)
+{
+	setCenter(playerPos.x, playerPos.y);
+}
+
 void Camera::move(float offsetX, float offsetY)
 {
 	mView.move(offsetX, offsetY);

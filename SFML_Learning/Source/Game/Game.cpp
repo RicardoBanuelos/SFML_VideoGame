@@ -9,7 +9,8 @@
 
 Game::Game()
 	:	mSettings(0, 0, 10),
-		mWindow(new sf::RenderWindow(sf::VideoMode(1920,1080), "RPG Game", sf::Style::Default, mSettings))
+		mWindow(new sf::RenderWindow(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, mSettings)),
+		mCamera(mWindow->getSize().x, mWindow->getSize().y)
 {	
 	if (!loadAllTextures())
 	{
@@ -35,6 +36,8 @@ void Game::run()
 
 		update(deltaTime);
 		draw();
+
+		mWindow->setView(mCamera.getView());
 	}
 }
 
@@ -59,6 +62,8 @@ void Game::update(float deltaTime)
 	MousePosition::update(*mWindow);
 	mPlayer.update(deltaTime);
 	mZombie.update(deltaTime);
+
+	mCamera.follow(mPlayer.getPosition());
 }
 
 void Game::draw()
