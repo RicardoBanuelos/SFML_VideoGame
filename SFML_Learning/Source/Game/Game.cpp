@@ -16,7 +16,7 @@ Game::Game()
 		mWindow->close();
 	}
 
-	mPlayer = Player(1280 / 2, 720 / 2, 253, 216, TextureLoader::getTexture("Player"));
+	mPlayer = Player(sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player"));
 }
 
 Game::~Game()
@@ -78,16 +78,6 @@ void Game::pollEvents()
 			case sf::Event::Closed:
 				this->mWindow->close();
 				break;
-
-			/*case sf::Event::MouseButtonPressed:
-				if (event.mouseButton.button == sf::Mouse::Button::Left)
-				{
-					sf::Vector2i mousePixelCoords = sf::Mouse::getPosition(*mWindow);
-					sf::Vector2f mouseWorldCoords = mWindow->mapPixelToCoords(mousePixelCoords);
-
-					std::cout << mouseWorldCoords.x << " | " << mouseWorldCoords.y << std::endl;
-				}
-				break;*/
 			default:
 				break;
 		}

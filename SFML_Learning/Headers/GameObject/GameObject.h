@@ -1,20 +1,24 @@
 #pragma once
 
+#include "GameObjectIDs.h"
+
 #include <SFML/Graphics.hpp>
 
-class GameObject {
+class GameObject : public sf::Sprite {
 public:
 	GameObject();
-	GameObject(float x, float y, float width, float height, sf::Texture& texture);
+	GameObject(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~GameObject();
 
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
 
-	sf::Vector2f position();
-	sf::FloatRect globalBounds();
 protected:
-	sf::RectangleShape mShape;
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
+	ID mID;
+	sf::RectangleShape mHitBox;
+	float mSpeed;
+
+private:
+	void initHitBox();
+	void alignCenter();
 };

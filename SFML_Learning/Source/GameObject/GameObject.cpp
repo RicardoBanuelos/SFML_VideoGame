@@ -1,16 +1,20 @@
 #include "GameObject/GameObject.h"
 
 GameObject::GameObject()
+	:	mID(UNDEFINED),
+		mHitBox(),
+		mSpeed(0.0f)
 {
 }
 
-GameObject::GameObject(float x, float y, float width, float height, sf::Texture& texture)
-	:	mTexture(texture),
-		mSprite(texture)
+GameObject::GameObject(sf::Vector2f position, const sf::Texture& texture)
+	:	GameObject()
 {
-	mShape.setPosition(x, y);
-	mShape.setSize(sf::Vector2f(width, height));
-	mSprite.setPosition(x, y);
+	setTexture(texture);
+	setPosition(position);
+
+	initHitBox();
+	alignCenter();
 }
 
 GameObject::~GameObject()
@@ -20,20 +24,25 @@ GameObject::~GameObject()
 
 void GameObject::update(float deltaTime)
 {
-	mSprite.setPosition(mShape.getPosition());
+	
 }
 
 void GameObject::draw(sf::RenderWindow& window)
 {
-	window.draw(mSprite);
+	window.draw(*this);
 }
 
-sf::Vector2f GameObject::position()
+void GameObject::initHitBox()
 {
-	return mShape.getPosition();
+	mHitBox.setPosition(getPosition());
+	sf::Vector2i textureSize = getTextureRect().getSize();
+	mHitBox.setSize(static_cast<sf::Vector2f>(textureSize));
 }
 
-sf::FloatRect GameObject::globalBounds()
+void GameObject::alignCenter()
 {
-	return mShape.getGlobalBounds();
+	sf::Vector2i textureSize = getTextureRect().getSize();
+
+	setOrigin(textureSize.x / 2.0f, textureSize.y / 2.0f);
+	mHitBox.setOrigin(textureSize.x / 2.0f, textureSize.y / 2.0f);
 }

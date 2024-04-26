@@ -1,24 +1,26 @@
 #pragma once
 
-#include "Character/Character.h"
+#include "GameObject/GameObject.h"
 
+#include "Weapons.h"
 #include "Bullet/Bullet.h"
 
 #include <vector>
 
-class Player : public Character {
+class Player : public GameObject {
 public:
 	Player();
-	Player(float x, float y, float width, float height, sf::Texture& texture);
+	Player(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~Player();
 
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
-	virtual void move(sf::Vector2f direction) override;
 private:
 	void checkKeyInput(float deltaTime);
 	void rotate();
 	void shoot(float deltaTime);
+
+	sf::Vector2f getWeaponOffsetPosition(WeaponID weapon);
 
 	sf::RectangleShape mBulletStartPoint;
 	std::vector<Bullet> mBullets;
