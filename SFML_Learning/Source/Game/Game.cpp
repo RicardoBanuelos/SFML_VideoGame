@@ -17,6 +17,7 @@ Game::Game()
 	}
 
 	mPlayer = Player(sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player"));
+	mZombie = Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie"));
 }
 
 Game::~Game()
@@ -57,6 +58,7 @@ void Game::update(float deltaTime)
 	pollEvents();
 	MousePosition::update(*mWindow);
 	mPlayer.update(deltaTime);
+	mZombie.update(deltaTime);
 }
 
 void Game::draw()
@@ -64,6 +66,7 @@ void Game::draw()
 	mWindow->clear(sf::Color::Black);
 
 	mPlayer.draw(*mWindow);
+	mZombie.draw(*mWindow);
 
 	mWindow->display();
 }

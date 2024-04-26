@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player/Player.h"
+#include "Zombie/Zombie.h"
 
 class Game 
 {
@@ -24,4 +25,5 @@ private:
 	sf::RenderWindow* mWindow;
 
 	Player mPlayer;
+	Zombie mZombie;
  };

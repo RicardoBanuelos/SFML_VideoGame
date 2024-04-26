@@ -143,6 +143,7 @@
     <ClCompile Include="Source\MousePosition\MousePosition.cpp" />
     <ClCompile Include="Source\Player\Player.cpp" />
     <ClCompile Include="Source\TextureLoader\TextureLoader.cpp" />
+    <ClCompile Include="Source\Zombie\Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\dirt.png" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Headers\Player\Weapons.h" />
     <ClInclude Include="Headers\TextureLoader\TextureLoader.h" />
     <ClInclude Include="Headers\TextureLoader\TextureStrings.h" />
+    <ClInclude Include="Headers\Zombie\Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
