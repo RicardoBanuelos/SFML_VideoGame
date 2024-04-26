@@ -7,10 +7,15 @@
 #include "MousePosition/MousePosition.h"
 #include "GameMath/GameMath.h"
 
-Player::Player() {}
+#include "ObjectPool/ObjectPoolHandler.h"
 
-Player::Player(sf::Vector2f position, const sf::Texture& texture)
-	: GameObject(position, texture)
+Player::Player() 
+	:	mObjectCreator(nullptr)
+{}
+
+Player::Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const sf::Texture& texture)
+	:	GameObject(position, texture),
+		mObjectCreator(objectCreator)
 {
 	mID = PLAYER;
 }
@@ -24,21 +29,11 @@ void Player::update(float deltaTime)
 
 	mBulletStartPoint.setPosition(getWeaponOffsetPosition(HANDGUN));
 	shoot(deltaTime);
-
-	for (Bullet& bullet : mBullets)
-	{
-		bullet.update(deltaTime);
-	}
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
 	GameObject::draw(window);
-
-	for (Bullet& bullet : mBullets)
-	{
-		bullet.draw(window);
-	}
 }
 
 void Player::checkKeyInput(float deltaTime)
@@ -82,14 +77,18 @@ void Player::shoot(float deltaTime)
 	static float accumTime = 0;
 	accumTime += deltaTime;
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && accumTime >= 0.4f)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && accumTime >= 0.25f)
 	{
-		accumTime = 0;
+		accumTime = 0; 
 
-		sf::Vector2f startPoint(mBulletStartPoint.getPosition().x, mBulletStartPoint.getPosition().y);
-		float angle = getRotation();
+		Bullet* bullet = ObjectPoolHandler::acquireBullet();
+		bullet->setPosition(mBulletStartPoint.getPosition());
+		bullet->setRotation(getRotation());
+		bullet->setAngle(getRotation());
+		bullet->unRelease();
+		bullet->setTexture(TextureLoader::getTexture("Bullet"));
 
-		mBullets.push_back(Bullet(startPoint, angle, TextureLoader::getTexture("Bullet")));
+		mObjectCreator->create(BULLET, bullet);
 	}
 }
 

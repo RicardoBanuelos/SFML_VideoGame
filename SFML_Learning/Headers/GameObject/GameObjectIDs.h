@@ -3,6 +3,6 @@
 enum ID {
 	UNDEFINED,
 	PLAYER,
-	ENEMY,
+	ZOMBIE,
 	BULLET
 };

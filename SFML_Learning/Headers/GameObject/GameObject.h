@@ -13,10 +13,15 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
 
+	bool isReleased();
+	void release();
+	void unRelease();
+
 protected:
 	ID mID;
 	sf::RectangleShape mHitBox;
 	float mSpeed;
+	bool mReleased;
 
 private:
 	void initHitBox();

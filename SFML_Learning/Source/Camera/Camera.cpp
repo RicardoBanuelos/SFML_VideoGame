@@ -4,6 +4,7 @@ Camera::Camera(float width, float height)
 {
 	mView.setSize(width, height);
 	mView.setCenter(width / 2, height / 2);
+	zoom(1.5f);
 }
 
 Camera::~Camera() {}

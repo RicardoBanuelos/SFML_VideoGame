@@ -2,18 +2,25 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "GameObject/GameObject.h"
+#include "GameObject/GameObjectIDs.h"
+#include "GameObject/IGameObjectCreator.h"
 #include "Player/Player.h"
-#include "Zombie/Zombie.h"
-
 #include "Camera/Camera.h"
 
-class Game 
+#include<map>
+#include<unordered_set>
+
+class Game : public IGameObjectCreator
 {
 public:
 	Game();
 	~Game();
 
 	void run();
+
+protected:
+	void create(ID id, GameObject* object) override;
 
 private:
 	bool loadAllTextures();
@@ -26,8 +33,8 @@ private:
 	sf::ContextSettings mSettings;
 	sf::RenderWindow* mWindow;
 
-	Player mPlayer;
-	Zombie mZombie;
+	std::map<ID, std::unordered_set<GameObject*>> mGameObjects;
+	Player* mPlayer;
 
 	Camera mCamera;
  };

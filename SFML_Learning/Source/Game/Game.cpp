@@ -7,6 +7,12 @@
 #include "TextureLoader/TextureLoader.h"
 #include "TextureLoader/TextureStrings.h"
 
+#include "Zombie/Zombie.h"
+
+#include "ObjectPool/ObjectPoolHandler.h"
+
+#include <unordered_map>
+
 Game::Game()
 	:	mSettings(0, 0, 10),
 		mWindow(new sf::RenderWindow(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, mSettings)),
@@ -17,13 +23,17 @@ Game::Game()
 		mWindow->close();
 	}
 
-	mPlayer = Player(sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player"));
-	mZombie = Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie"));
+	mWindow->setVerticalSyncEnabled(true);
+	mPlayer = new Player(this, sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player"));
+
+	mGameObjects[PLAYER].insert(mPlayer);
+	mGameObjects[ZOMBIE].insert(new Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie")));
 }
 
 Game::~Game()
 {
 	delete mWindow;
+	delete mPlayer;
 }
 
 void Game::run()
@@ -39,6 +49,11 @@ void Game::run()
 
 		mWindow->setView(mCamera.getView());
 	}
+}
+
+void Game::create(ID id, GameObject* object)
+{
+	mGameObjects[id].insert(object);
 }
 
 bool Game::loadAllTextures()
@@ -60,18 +75,44 @@ void Game::update(float deltaTime)
 {
 	pollEvents();
 	MousePosition::update(*mWindow);
-	mPlayer.update(deltaTime);
-	mZombie.update(deltaTime);
 
-	mCamera.follow(mPlayer.getPosition());
+	std::unordered_map<ID, std::vector<GameObject*>> releasedObjects;
+
+	for (auto&& [id, objectSet] : mGameObjects)
+	{
+		for (auto object : objectSet)
+		{
+			object->update(deltaTime);
+			if (object->isReleased())
+			{
+				ObjectPoolHandler::releaseBullet(static_cast<Bullet*>(object));
+				releasedObjects[id].push_back(object);
+			}
+		}
+	}
+
+	for (auto& [id, objects] : releasedObjects)
+	{
+		for (auto object : objects)
+		{
+			mGameObjects[id].erase(object);
+		}
+	}
+
+	mCamera.follow(mPlayer->getPosition());
 }
 
 void Game::draw()
 {
 	mWindow->clear(sf::Color::Black);
 
-	mPlayer.draw(*mWindow);
-	mZombie.draw(*mWindow);
+	for (auto&& [id, objectSet] : mGameObjects)
+	{
+		for (auto object : objectSet)
+		{
+			object->draw(*mWindow);
+		}
+	}
 
 	mWindow->display();
 }

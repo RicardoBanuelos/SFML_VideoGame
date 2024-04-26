@@ -3,13 +3,16 @@
 GameObject::GameObject()
 	:	mID(UNDEFINED),
 		mHitBox(),
-		mSpeed(0.0f)
+		mSpeed(0.0f),
+		mReleased(false)
 {
 }
 
 GameObject::GameObject(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject()
 {
+	mReleased = false;
+
 	setTexture(texture);
 	setPosition(position);
 
@@ -30,6 +33,20 @@ void GameObject::update(float deltaTime)
 void GameObject::draw(sf::RenderWindow& window)
 {
 	window.draw(*this);
+}
+
+bool GameObject::isReleased()
+{
+	return mReleased;
+}
+
+void GameObject::release()
+{
+	mReleased = true;
+}
+void GameObject::unRelease()
+{
+	mReleased = false;
 }
 
 void GameObject::initHitBox()

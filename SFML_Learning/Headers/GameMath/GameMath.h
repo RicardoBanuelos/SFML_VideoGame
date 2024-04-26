@@ -20,4 +20,9 @@ namespace GameMath {
 	{
 		return angle * (PI / 180);
 	}
+
+	inline bool outOfBounds(int x, int y)
+	{
+		return x <= -1000 || x >= 2920 || y <= -1000 || y >= 2080;
+	}
 }
