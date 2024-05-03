@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GameObject/GameObject.h"
-#include "GameObject/IGameObjectCreator.h"
 
 #include "Weapons.h"
 #include "Bullet/Bullet.h"
@@ -10,8 +9,7 @@
 
 class Player : public GameObject {
 public:
-	Player();
-	Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const sf::Texture& texture);
+	Player(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~Player();
 
 	virtual void init() override;
@@ -23,7 +21,5 @@ private:
 	void shoot(float deltaTime);
 
 	sf::Vector2f getWeaponOffsetPosition(WeaponID weapon);
-
 	sf::RectangleShape mBulletStartPoint;
-	IGameObjectCreator* mObjectCreator;
 };

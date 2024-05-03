@@ -8,16 +8,10 @@
 #include "GameMath/GameMath.h"
 
 #include "ObjectPool/ObjectPoolHandler.h"
+#include "GameObject/GameObjectHandler.h"
 
-Player::Player() 
-	:	mObjectCreator(nullptr)
-{
-	init();
-}
-
-Player::Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const sf::Texture& texture)
-	:	GameObject(position, texture),
-		mObjectCreator(objectCreator)
+Player::Player(sf::Vector2f position, const sf::Texture& texture)
+	:	GameObject(position, texture)
 {
 	init();
 }
@@ -101,7 +95,7 @@ void Player::shoot(float deltaTime)
 		bullet->setTexture(TextureLoader::getTexture("Bullet"));
 		bullet->lateInit();
 
-		mObjectCreator->create(BULLET, bullet);
+		GameObjectHandler::addGameObject(BULLET, bullet);
 	}
 }
 

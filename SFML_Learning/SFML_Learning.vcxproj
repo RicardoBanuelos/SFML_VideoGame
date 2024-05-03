@@ -139,6 +139,7 @@
     <ClCompile Include="Source\Bullet\Bullet.cpp" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
+    <ClCompile Include="Source\GameObject\GameObjectHandler.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MousePosition\MousePosition.cpp" />
@@ -155,7 +156,7 @@
     <ClInclude Include="Headers\Camera\Camera.h" />
     <ClInclude Include="Headers\GameMath\GameMath.h" />
     <ClInclude Include="Headers\GameObject\GameObject.h" />
-    <ClInclude Include="Headers\GameObject\IGameObjectCreator.h" />
+    <ClInclude Include="Headers\GameObject\GameObjectHandler.h" />
     <ClInclude Include="Headers\GameObject\GameObjectIDs.h" />
     <ClInclude Include="Headers\Game\Game.h" />
     <ClInclude Include="Headers\MousePosition\MousePosition.h" />

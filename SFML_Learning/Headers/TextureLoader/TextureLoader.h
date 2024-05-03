@@ -8,6 +8,7 @@ class TextureLoader {
 public:
 	TextureLoader() = delete;
 
+	static bool loadAllTextures();
 	static bool loadTexture(const std::string& textureName, const std::string& texturePath);
 	static sf::Texture& getTexture(const std::string& textureName);
 

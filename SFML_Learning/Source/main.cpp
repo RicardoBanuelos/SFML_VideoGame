@@ -1,11 +1,15 @@
-#include <Game/Game.h>
+#include "TextureLoader/TextureLoader.h"
+#include "Game/Game.h"
+
 
 int main()
 {
 	std::srand(std::time(0));
 
-	Game* game;
-	game->run();
+	if (!TextureLoader::loadAllTextures()) return -1;
+
+	Game game;
+	game.run();
 
 	return 0;
 }
