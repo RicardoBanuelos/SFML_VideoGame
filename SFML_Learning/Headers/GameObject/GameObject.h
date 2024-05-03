@@ -1,10 +1,12 @@
 #pragma once
 
 #include "GameObjectIDs.h"
+#include "Collisions/ICollidable.h"
 
 #include <SFML/Graphics.hpp>
 
-class GameObject : public sf::Sprite {
+class GameObject : public sf::Sprite, public ICollidable 
+{
 public:
 	GameObject();
 	GameObject(sf::Vector2f position, const sf::Texture& texture);
@@ -13,6 +15,7 @@ public:
 	virtual void init() = 0;
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
+	virtual void processCollision(ICollidable& other);
 
 	bool isReleased();
 	void release();

@@ -45,7 +45,8 @@ void Bullet::draw(sf::RenderWindow& window)
 
 void Bullet::processCollision(ICollidable& other)
 {
-
+	std::cout << "Bullet Collsion" << std::endl;
+	release();
 }
 
 void Bullet::setAngle(float angle)

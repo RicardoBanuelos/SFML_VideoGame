@@ -74,7 +74,7 @@ void GameObjectHandler::detectCollisions()
 			{
 				if (GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
 				{
-
+					object->processCollision(*mPlayer);
 				}
 			}
 			else if (object->id() == BULLET)
@@ -83,7 +83,7 @@ void GameObjectHandler::detectCollisions()
 				{
 					if (GameMath::isColliding(object->hitbox(), zombie->hitbox()))
 					{
-						object->release();
+						object->processCollision(*zombie);
 					}
 				}
 			}

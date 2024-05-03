@@ -43,7 +43,7 @@ void Player::draw(sf::RenderWindow& window)
 
 void Player::processCollision(ICollidable& other)
 {
-
+	std::cout << "Player Collision" << std::endl;
 }
 
 void Player::checkKeyInput(float deltaTime)

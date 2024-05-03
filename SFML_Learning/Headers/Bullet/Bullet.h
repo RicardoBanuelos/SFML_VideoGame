@@ -3,7 +3,7 @@
 #include "GameObject/GameObject.h"
 #include "Collisions/ICollidable.h"
 
-class Bullet : public GameObject, public ICollidable 
+class Bullet : public GameObject
 {
 public:
 	Bullet();

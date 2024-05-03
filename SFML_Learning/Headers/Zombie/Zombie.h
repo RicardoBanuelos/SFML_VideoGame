@@ -5,7 +5,7 @@
 
 class Player;
 
-class Zombie : public GameObject, public ICollidable
+class Zombie : public GameObject
 {
 public:
 	Zombie();

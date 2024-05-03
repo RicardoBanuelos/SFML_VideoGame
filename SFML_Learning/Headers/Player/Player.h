@@ -1,14 +1,13 @@
 #pragma once
 
 #include "GameObject/GameObject.h"
-#include "Collisions/ICollidable.h"
 
 #include "Weapons.h"
 #include "Bullet/Bullet.h"
 
 #include <vector>
 
-class Player : public GameObject, public ICollidable 
+class Player : public GameObject
 {
 public:
 	Player(sf::Vector2f position, const sf::Texture& texture);

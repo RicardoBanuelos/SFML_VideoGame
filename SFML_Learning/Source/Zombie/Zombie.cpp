@@ -2,6 +2,8 @@
 #include "Player/Player.h"
 #include "GameMath/GameMath.h"
 
+#include <iostream>
+
 Zombie::Zombie()
 	:	GameObject(),
 		mPlayer(nullptr)
@@ -54,7 +56,7 @@ void Zombie::draw(sf::RenderWindow& window)
 
 void Zombie::processCollision(ICollidable& other)
 {
-
+	std::cout << "Zombie Collision" << std::endl;
 }
 
 void Zombie::setPlayer(Player* player)
