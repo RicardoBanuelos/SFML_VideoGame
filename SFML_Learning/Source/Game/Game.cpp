@@ -89,7 +89,7 @@ void Game::update(float deltaTime)
 			{
 				if (GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
 				{
-					std::cout << "Zombie Collision" << std::endl;
+					
 				}
 			}
 			else if (object->id() == BULLET)
@@ -98,7 +98,6 @@ void Game::update(float deltaTime)
 				{
 					if (GameMath::isColliding(object->hitbox(), zombie->hitbox()))
 					{
-						std::cout << "Bullet hit zombie" << std::endl;
 						object->release();
 					}
 				}
@@ -148,6 +147,13 @@ void Game::pollEvents()
 			case sf::Event::Closed:
 				this->mWindow->close();
 				break;
+			/*case sf::Event::KeyPressed:
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					this->mWindow->close();
+				}
+				this->mWindow->close();
+				break;*/
 			default:
 				break;
 		}

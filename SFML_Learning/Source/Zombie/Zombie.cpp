@@ -4,12 +4,14 @@ Zombie::Zombie()
 	:	GameObject()
 {
 	mID = ZOMBIE;
+	mSpeed = 900.0f;
 }
 
 Zombie::Zombie(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject(position, texture)
 {
 	mID = ZOMBIE;
+	mSpeed = 900.0f;
 }
 
 Zombie::~Zombie() {}

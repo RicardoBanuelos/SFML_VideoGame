@@ -10,6 +10,8 @@ namespace GameMath {
 	{
 		float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y);
 
+		if (magnitude == 0.0f) return vector;
+
 		float normalizedX = vector.x / magnitude;
 		float normalizedY = vector.y / magnitude;
 
@@ -29,5 +31,17 @@ namespace GameMath {
 	inline bool isColliding(sf::FloatRect x, sf::FloatRect y)
 	{
 		return x.intersects(y);
+	}
+
+	inline float lerp(float goal, float current, float dt)
+	{
+		float flDifference = goal - current;
+
+		if (flDifference > dt)
+			return current + dt;
+		if (flDifference < -dt)
+			return current - dt;
+
+		return goal;
 	}
 }

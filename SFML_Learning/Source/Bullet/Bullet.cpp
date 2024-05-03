@@ -8,12 +8,14 @@
 Bullet::Bullet()
 {
 	mID = BULLET;
+	mSpeed = 10000.0f;
 }
 
 Bullet::Bullet(sf::Vector2f position, float angle, sf::Texture& texture)
 	:	GameObject(position, texture)
 {
 	mID = BULLET;
+	mSpeed = 10000.0f;
 	setRotation(angle);
 	calculateDirection(angle);
 }
@@ -22,8 +24,7 @@ Bullet::~Bullet(){}
 
 void Bullet::update(float deltaTime)
 {
-	const float SPEED = 5000.0f;
-	move(mDirection * SPEED * deltaTime);
+	move(mDirection * mSpeed * deltaTime);
 
 	if (GameMath::outOfBounds(getPosition().x, getPosition().y))
 	{

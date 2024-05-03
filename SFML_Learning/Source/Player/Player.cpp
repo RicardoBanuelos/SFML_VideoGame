@@ -18,6 +18,7 @@ Player::Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const s
 		mObjectCreator(objectCreator)
 {
 	mID = PLAYER;
+	mSpeed = 1000.0f;
 }
 
 Player::~Player() {}
@@ -40,28 +41,29 @@ void Player::draw(sf::RenderWindow& window)
 
 void Player::checkKeyInput(float deltaTime)
 {
-	const float SPEED = 1000.0f;
 	sf::Vector2f direction;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		direction = sf::Vector2f(0, -SPEED);
+		direction.y = -1;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		direction = sf::Vector2f(-SPEED, 0);
+		direction.x = -1;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		direction = sf::Vector2f(0, SPEED);
+		direction.y = 1;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		direction = sf::Vector2f(SPEED, 0);
+		direction.x = 1;
 	}
 
-	move(direction * deltaTime);
-	mHitBox.move(direction * deltaTime);
+	direction = GameMath::normalize(direction);
+
+	move(mSpeed * direction * deltaTime);
+	mHitBox.move(mSpeed * direction * deltaTime);
 }
 
 void Player::rotate()
