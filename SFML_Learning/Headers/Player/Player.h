@@ -1,13 +1,15 @@
 #pragma once
 
 #include "GameObject/GameObject.h"
+#include "Collisions/ICollidable.h"
 
 #include "Weapons.h"
 #include "Bullet/Bullet.h"
 
 #include <vector>
 
-class Player : public GameObject {
+class Player : public GameObject, public ICollidable 
+{
 public:
 	Player(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~Player();
@@ -15,6 +17,8 @@ public:
 	virtual void init() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
+	virtual void processCollision(ICollidable& other) override;
+
 private:
 	void checkKeyInput(float deltaTime);
 	void rotate();

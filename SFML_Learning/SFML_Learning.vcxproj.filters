@@ -103,5 +103,8 @@
     <ClInclude Include="Headers\GameObject\GameObjectHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Collisions\ICollidable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

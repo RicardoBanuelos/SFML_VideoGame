@@ -23,6 +23,9 @@ public:
 	static Player* getPlayer();
 
 private:
+	static void detectCollisions();
+	static void releaseObjects();
 	static std::map<ID, std::unordered_set<GameObject*>> mGameObjects;
+	static std::map<ID, std::vector<GameObject*>> mReleasedObjects;
 	static Player* mPlayer;
 };

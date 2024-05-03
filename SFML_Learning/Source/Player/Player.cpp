@@ -41,6 +41,11 @@ void Player::draw(sf::RenderWindow& window)
 	GameObject::draw(window);
 }
 
+void Player::processCollision(ICollidable& other)
+{
+
+}
+
 void Player::checkKeyInput(float deltaTime)
 {
 	sf::Vector2f direction;

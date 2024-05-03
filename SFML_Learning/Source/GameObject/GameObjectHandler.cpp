@@ -7,53 +7,23 @@
 #include "GameMath/GameMath.h"
 
 std::map<ID, std::unordered_set<GameObject*>> GameObjectHandler::mGameObjects;
+std::map<ID, std::vector<GameObject*>> GameObjectHandler::mReleasedObjects;
 Player* GameObjectHandler::mPlayer = nullptr;
 
 void GameObjectHandler::update(float deltaTime)
 {
 	mPlayer->update(deltaTime);
 
-	std::unordered_map<ID, std::vector<GameObject*>> releasedObjects;
-
 	for (auto&& [id, objectSet] : mGameObjects)
 	{
-		for (auto object : objectSet)
+		for (auto& object : objectSet)
 		{
 			object->update(deltaTime);
-
-			if (object->id() == ZOMBIE)
-			{
-				if (GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
-				{
-
-				}
-			}
-			else if (object->id() == BULLET)
-			{
-				for (auto& zombie : mGameObjects[ZOMBIE])
-				{
-					if (GameMath::isColliding(object->hitbox(), zombie->hitbox()))
-					{
-						object->release();
-					}
-				}
-			}
-
-			if (object->isReleased())
-			{
-				ObjectPoolHandler::releaseBullet(static_cast<Bullet*>(object));
-				releasedObjects[id].push_back(object);
-			}
 		}
 	}
 
-	for (auto& [id, objects] : releasedObjects)
-	{
-		for (auto object : objects)
-		{
-			mGameObjects[id].erase(object);
-		}
-	}
+	detectCollisions();
+	releaseObjects();
 }
 
 void GameObjectHandler::draw(sf::RenderWindow& window)
@@ -92,4 +62,50 @@ void GameObjectHandler::setPlayer(Player* player)
 Player* GameObjectHandler::getPlayer()
 {
 	return mPlayer;
+}
+
+void GameObjectHandler::detectCollisions()
+{
+	for (auto&& [id, objectSet] : mGameObjects)
+	{
+		for (auto object : objectSet)
+		{
+			if (object->id() == ZOMBIE)
+			{
+				if (GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
+				{
+
+				}
+			}
+			else if (object->id() == BULLET)
+			{
+				for (auto& zombie : mGameObjects[ZOMBIE])
+				{
+					if (GameMath::isColliding(object->hitbox(), zombie->hitbox()))
+					{
+						object->release();
+					}
+				}
+			}
+
+			if (object->isReleased())
+			{
+				ObjectPoolHandler::releaseBullet(static_cast<Bullet*>(object));
+				mReleasedObjects[id].push_back(object);
+			}
+		}
+	}
+}
+
+void GameObjectHandler::releaseObjects()
+{
+	for (auto& [id, objects] : mReleasedObjects)
+	{
+		for (auto object : objects)
+		{
+			mGameObjects[id].erase(object);
+		}
+	}
+
+	mReleasedObjects.clear();
 }

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "GameObject/GameObject.h"
+#include "Collisions/ICollidable.h"
+
 class Player;
 
-class Zombie : public GameObject 
+class Zombie : public GameObject, public ICollidable
 {
 public:
 	Zombie();
@@ -14,6 +16,7 @@ public:
 	virtual void init() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
+	virtual void processCollision(ICollidable& other) override;
 
 	void setPlayer(Player* player);
 private:

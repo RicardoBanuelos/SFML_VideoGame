@@ -43,6 +43,11 @@ void Bullet::draw(sf::RenderWindow& window)
 	GameObject::draw(window);
 }
 
+void Bullet::processCollision(ICollidable& other)
+{
+
+}
+
 void Bullet::setAngle(float angle)
 {
 	calculateDirection(angle);

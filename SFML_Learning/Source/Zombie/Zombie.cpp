@@ -52,6 +52,11 @@ void Zombie::draw(sf::RenderWindow& window)
 	GameObject::draw(window);
 }
 
+void Zombie::processCollision(ICollidable& other)
+{
+
+}
+
 void Zombie::setPlayer(Player* player)
 {
 	mPlayer = player;
