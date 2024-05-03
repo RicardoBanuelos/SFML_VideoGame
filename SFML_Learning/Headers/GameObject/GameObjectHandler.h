@@ -24,8 +24,10 @@ public:
 
 private:
 	static void detectCollisions();
+	static void detectUnCollisions();
 	static void releaseObjects();
 	static std::map<ID, std::unordered_set<GameObject*>> mGameObjects;
 	static std::map<ID, std::vector<GameObject*>> mReleasedObjects;
+	static std::unordered_set<GameObject*> mTriggeredZombies;
 	static Player* mPlayer;
 };

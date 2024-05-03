@@ -8,6 +8,7 @@
 
 std::map<ID, std::unordered_set<GameObject*>> GameObjectHandler::mGameObjects;
 std::map<ID, std::vector<GameObject*>> GameObjectHandler::mReleasedObjects;
+std::unordered_set<GameObject*> GameObjectHandler::mTriggeredZombies;
 Player* GameObjectHandler::mPlayer = nullptr;
 
 void GameObjectHandler::update(float deltaTime)
@@ -23,6 +24,7 @@ void GameObjectHandler::update(float deltaTime)
 	}
 
 	detectCollisions();
+	detectUnCollisions();
 	releaseObjects();
 }
 
@@ -72,9 +74,10 @@ void GameObjectHandler::detectCollisions()
 		{
 			if (object->id() == ZOMBIE)
 			{
-				if (GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
+				if (mTriggeredZombies.count(object) == 0 && GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
 				{
 					object->processCollision(*mPlayer);
+					mTriggeredZombies.insert(object);
 				}
 			}
 			else if (object->id() == BULLET)
@@ -94,6 +97,23 @@ void GameObjectHandler::detectCollisions()
 				mReleasedObjects[id].push_back(object);
 			}
 		}
+	}
+}
+
+void GameObjectHandler::detectUnCollisions()
+{
+	std::vector<GameObject*> unTriggered;
+	for (auto& zombie : mTriggeredZombies)
+	{
+		if (!GameMath::isColliding(zombie->hitbox(), mPlayer->hitbox()))
+		{
+			unTriggered.push_back(zombie);
+		}
+	}
+
+	for (auto& obj : unTriggered)
+	{
+		mTriggeredZombies.erase(obj);
 	}
 }
 
