@@ -7,20 +7,24 @@
 
 Bullet::Bullet()
 {
-	mID = BULLET;
-	mSpeed = 10000.0f;
+	init();
 }
 
 Bullet::Bullet(sf::Vector2f position, float angle, sf::Texture& texture)
 	:	GameObject(position, texture)
 {
-	mID = BULLET;
-	mSpeed = 10000.0f;
+	init();
 	setRotation(angle);
 	calculateDirection(angle);
 }
 
 Bullet::~Bullet(){}
+
+void Bullet::init()
+{
+	mID = BULLET;
+	mSpeed = 10000.0f;
+}
 
 void Bullet::update(float deltaTime)
 {

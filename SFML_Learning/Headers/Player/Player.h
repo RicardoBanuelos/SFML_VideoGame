@@ -14,6 +14,7 @@ public:
 	Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const sf::Texture& texture);
 	virtual ~Player();
 
+	virtual void init() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
 private:

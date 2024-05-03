@@ -10,6 +10,7 @@ public:
 	GameObject(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~GameObject();
 
+	virtual void init() = 0;
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
 

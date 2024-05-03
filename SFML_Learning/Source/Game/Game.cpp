@@ -28,7 +28,7 @@ Game::Game()
 	mPlayer = new Player(this, sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player"));
 
 	mGameObjects[PLAYER].insert(mPlayer);
-	mGameObjects[ZOMBIE].insert(new Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie")));
+	mGameObjects[ZOMBIE].insert(new Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie"), mPlayer));
 }
 
 Game::~Game()

@@ -11,17 +11,24 @@
 
 Player::Player() 
 	:	mObjectCreator(nullptr)
-{}
+{
+	init();
+}
 
 Player::Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject(position, texture),
 		mObjectCreator(objectCreator)
 {
-	mID = PLAYER;
-	mSpeed = 1000.0f;
+	init();
 }
 
 Player::~Player() {}
+
+void Player::init()
+{
+	mID = PLAYER;
+	mSpeed = 1000.0f;
+}
 
 void Player::update(float deltaTime)
 {

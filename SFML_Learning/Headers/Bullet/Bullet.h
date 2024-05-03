@@ -8,6 +8,7 @@ public:
 	Bullet(sf::Vector2f position, float angle, sf::Texture& texture);
 	virtual ~Bullet();
 
+	virtual void init() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
 
