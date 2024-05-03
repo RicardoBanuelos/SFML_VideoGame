@@ -44,4 +44,9 @@ namespace GameMath {
 
 		return goal;
 	}
+
+	inline float randomNumber(int max)
+	{
+		return (rand() % max);
+	}
 }

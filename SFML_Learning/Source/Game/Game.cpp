@@ -29,6 +29,9 @@ Game::Game()
 
 	mGameObjects[PLAYER].insert(mPlayer);
 	mGameObjects[ZOMBIE].insert(new Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie"), mPlayer));
+	mGameObjects[ZOMBIE].insert(new Zombie(sf::Vector2f(400, 400), TextureLoader::getTexture("Zombie"), mPlayer));
+	mGameObjects[ZOMBIE].insert(new Zombie(sf::Vector2f(500, 500), TextureLoader::getTexture("Zombie"), mPlayer));
+
 }
 
 Game::~Game()
@@ -145,15 +148,14 @@ void Game::pollEvents()
 		switch (event.type)
 		{
 			case sf::Event::Closed:
-				this->mWindow->close();
+				mWindow->close();
 				break;
-			/*case sf::Event::KeyPressed:
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Escape)
 				{
-					this->mWindow->close();
+					mWindow->close();
 				}
-				this->mWindow->close();
-				break;*/
+				break;
 			default:
 				break;
 		}

@@ -4,8 +4,10 @@ int main()
 {
 	std::srand(std::time(0));
 
-	Game* game;
+	Game* game = new Game();
 	game->run();
+
+	delete game;
 
 	return 0;
 }

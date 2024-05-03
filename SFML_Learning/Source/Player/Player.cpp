@@ -22,7 +22,8 @@ Player::Player(IGameObjectCreator* objectCreator, sf::Vector2f position, const s
 	init();
 }
 
-Player::~Player() {}
+Player::~Player() 
+{}
 
 void Player::init()
 {
