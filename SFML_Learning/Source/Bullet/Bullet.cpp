@@ -25,13 +25,12 @@ void Bullet::update(float deltaTime)
 	const float SPEED = 5000.0f;
 	move(mDirection * SPEED * deltaTime);
 
-	std::cout << "Updating Bullet" << std::endl;
-
 	if (GameMath::outOfBounds(getPosition().x, getPosition().y))
 	{
 		release();
-		std::cout << "Bullet Released" << std::endl;
 	}
+
+	GameObject::update(deltaTime);
 }
 
 void Bullet::draw(sf::RenderWindow& window)
@@ -42,6 +41,12 @@ void Bullet::draw(sf::RenderWindow& window)
 void Bullet::setAngle(float angle)
 {
 	calculateDirection(angle);
+}
+
+void Bullet::lateInit()
+{
+	initHitBox();
+	alignCenter();
 }
 
 void Bullet::calculateDirection(float angle)

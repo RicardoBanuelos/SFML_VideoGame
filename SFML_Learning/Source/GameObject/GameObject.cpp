@@ -27,11 +27,16 @@ GameObject::~GameObject()
 
 void GameObject::update(float deltaTime)
 {
-	
+	mHitBox.setPosition(getPosition());
+	mHitBox.setRotation(getRotation());
 }
 
 void GameObject::draw(sf::RenderWindow& window)
 {
+#ifdef TESTING
+	window.draw(mHitBox);
+#endif
+
 	window.draw(*this);
 }
 
@@ -49,11 +54,28 @@ void GameObject::unRelease()
 	mReleased = false;
 }
 
+ID GameObject::id()
+{
+	return mID;
+}
+
+sf::FloatRect GameObject::hitbox()
+{
+	return mHitBox.getGlobalBounds();
+}
+
 void GameObject::initHitBox()
 {
+#ifdef TESTING
+	mHitBox.setFillColor(sf::Color::Transparent);
+	mHitBox.setOutlineColor(sf::Color::Red);
+	mHitBox.setOutlineThickness(1.0f);
+#endif
+
 	mHitBox.setPosition(getPosition());
 	sf::Vector2i textureSize = getTextureRect().getSize();
 	mHitBox.setSize(static_cast<sf::Vector2f>(textureSize));
+	mHitBox.setScale(0.60f, 0.60f);
 }
 
 void GameObject::alignCenter()

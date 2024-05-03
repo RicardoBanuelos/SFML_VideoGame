@@ -17,13 +17,15 @@ public:
 	void release();
 	void unRelease();
 
+	ID id();
+
+	sf::FloatRect hitbox();
+
 protected:
 	ID mID;
 	sf::RectangleShape mHitBox;
 	float mSpeed;
 	bool mReleased;
-
-private:
 	void initHitBox();
 	void alignCenter();
 };

@@ -10,6 +10,7 @@
 #include "Zombie/Zombie.h"
 
 #include "ObjectPool/ObjectPoolHandler.h"
+#include "GameMath/GameMath.h"
 
 #include <unordered_map>
 
@@ -83,6 +84,26 @@ void Game::update(float deltaTime)
 		for (auto object : objectSet)
 		{
 			object->update(deltaTime);
+
+			if (object->id() == ZOMBIE)
+			{
+				if (GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
+				{
+					std::cout << "Zombie Collision" << std::endl;
+				}
+			}
+			else if (object->id() == BULLET)
+			{
+				for (auto& zombie : mGameObjects[ZOMBIE])
+				{
+					if (GameMath::isColliding(object->hitbox(), zombie->hitbox()))
+					{
+						std::cout << "Bullet hit zombie" << std::endl;
+						object->release();
+					}
+				}
+			}
+
 			if (object->isReleased())
 			{
 				ObjectPoolHandler::releaseBullet(static_cast<Bullet*>(object));

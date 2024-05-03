@@ -29,6 +29,8 @@ void Player::update(float deltaTime)
 
 	mBulletStartPoint.setPosition(getWeaponOffsetPosition(HANDGUN));
 	shoot(deltaTime);
+
+	GameObject::update(deltaTime);
 }
 
 void Player::draw(sf::RenderWindow& window)
@@ -87,6 +89,7 @@ void Player::shoot(float deltaTime)
 		bullet->setAngle(getRotation());
 		bullet->unRelease();
 		bullet->setTexture(TextureLoader::getTexture("Bullet"));
+		bullet->lateInit();
 
 		mObjectCreator->create(BULLET, bullet);
 	}

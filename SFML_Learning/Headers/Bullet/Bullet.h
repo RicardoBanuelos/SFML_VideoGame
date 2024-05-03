@@ -12,8 +12,9 @@ public:
 	virtual void draw(sf::RenderWindow& window) override;
 
 	void setAngle(float angle);
+
+	void lateInit();
 private:
 	void calculateDirection(float angle);
-
 	sf::Vector2f mDirection;
 };

@@ -25,4 +25,9 @@ namespace GameMath {
 	{
 		return x <= -1000 || x >= 2920 || y <= -1000 || y >= 2080;
 	}
+
+	inline bool isColliding(sf::FloatRect x, sf::FloatRect y)
+	{
+		return x.intersects(y);
+	}
 }
