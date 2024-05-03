@@ -9,6 +9,7 @@
 
 #include "GameObject/GameObjectHandler.h"
 #include "Player/Player.h"
+#include "Zombie/Zombie.h"
 
 Game::Game()
 	: mSettings(0, 0, 10),
@@ -17,6 +18,10 @@ Game::Game()
 {
 	mWindow->setVerticalSyncEnabled(true);
 	GameObjectHandler::setPlayer(new Player(sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player")));
+
+	GameObjectHandler::addGameObject(ZOMBIE, new Zombie(sf::Vector2f(100, 100), TextureLoader::getTexture("Zombie"), GameObjectHandler::getPlayer()));
+	GameObjectHandler::addGameObject(ZOMBIE, new Zombie(sf::Vector2f(200, 200), TextureLoader::getTexture("Zombie"), GameObjectHandler::getPlayer()));
+	GameObjectHandler::addGameObject(ZOMBIE, new Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie"), GameObjectHandler::getPlayer()));
 }
 
 Game::~Game()
