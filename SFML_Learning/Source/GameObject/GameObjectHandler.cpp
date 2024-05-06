@@ -6,6 +6,8 @@
 #include "ObjectPool/ObjectPoolHandler.h"
 #include "GameMath/GameMath.h"
 
+#include "Zombie/Zombie.h"
+
 std::map<ID, std::unordered_set<GameObject*>> GameObjectHandler::mGameObjects;
 std::map<ID, std::vector<GameObject*>> GameObjectHandler::mReleasedObjects;
 std::unordered_set<GameObject*> GameObjectHandler::mTriggeredZombies;
@@ -78,14 +80,25 @@ void GameObjectHandler::detectCollisions()
 				{
 					if (GameMath::isColliding(object->hitbox(), zombie->hitbox()))
 					{
-						object->processCollision(*zombie);
+						object->processCollision(zombie);
 					}
 				}
 			}
 
 			if (object->isReleased())
 			{
-				ObjectPoolHandler::releaseBullet(static_cast<Bullet*>(object));
+				ID id = object->id();
+
+				if (id == BULLET)
+				{
+					ObjectPoolHandler::releaseBullet(dynamic_cast<Bullet*>(object));
+				}
+				else if (id == ZOMBIE)
+				{
+					ObjectPoolHandler::releaseZombie(dynamic_cast<Zombie*>(object));
+				}
+					
+
 				mReleasedObjects[id].push_back(object);
 			}
 		}

@@ -42,7 +42,7 @@ void Player::draw(sf::RenderWindow& window)
 	GameObject::draw(window);
 }
 
-void Player::processCollision(ICollidable& other)
+void Player::processCollision(ICollidable* other)
 {
 	std::cout << "Player Collision" << std::endl;
 }
@@ -50,6 +50,11 @@ void Player::processCollision(ICollidable& other)
 void Player::takeDamage(float damage)
 {
 	mHealth = GameMath::clamp(0, 100, mHealth - damage);
+}
+
+float Player::health()
+{
+	return mHealth;
 }
 
 void Player::checkKeyInput(float deltaTime)

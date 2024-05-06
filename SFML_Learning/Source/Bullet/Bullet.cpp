@@ -4,16 +4,17 @@
 #include <math.h>
 
 #include "GameMath/GameMath.h"
+#include "Zombie/Zombie.h"
 
 Bullet::Bullet()
-	:	mDamage(50.0f)
+	:	mDamage(25.0f)
 {
 	init();
 }
 
 Bullet::Bullet(sf::Vector2f position, float angle, sf::Texture& texture)
 	:	GameObject(position, texture),
-		mDamage(50.0f)
+		mDamage(25.0f)
 {
 	init();
 	setRotation(angle);
@@ -45,9 +46,13 @@ void Bullet::draw(sf::RenderWindow& window)
 	GameObject::draw(window);
 }
 
-void Bullet::processCollision(ICollidable& other)
+void Bullet::processCollision(ICollidable* other)
 {
-	std::cout << "Bullet Collsion" << std::endl;
+	Zombie* zombie = dynamic_cast<Zombie*>(other);
+	if (!zombie) return;
+
+	zombie->takeDamage(damage());
+
 	release();
 }
 

@@ -40,7 +40,7 @@ void GameObject::draw(sf::RenderWindow& window)
 	window.draw(*this);
 }
 
-void GameObject::processCollision(ICollidable& other)
+void GameObject::processCollision(ICollidable* other)
 {
 	
 }

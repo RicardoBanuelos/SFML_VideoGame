@@ -11,6 +11,8 @@
 #include "Player/Player.h"
 #include "Zombie/Zombie.h"
 
+#include "ObjectPool/ObjectPoolHandler.h"
+
 Game::Game()
 	: mSettings(0, 0, 10),
 	mWindow(new sf::RenderWindow(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, mSettings)),
@@ -19,9 +21,15 @@ Game::Game()
 	mWindow->setVerticalSyncEnabled(true);
 	GameObjectHandler::setPlayer(new Player(sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player")));
 
-	GameObjectHandler::addGameObject(ZOMBIE, new Zombie(sf::Vector2f(100, 100), TextureLoader::getTexture("Zombie"), GameObjectHandler::getPlayer()));
-	GameObjectHandler::addGameObject(ZOMBIE, new Zombie(sf::Vector2f(200, 200), TextureLoader::getTexture("Zombie"), GameObjectHandler::getPlayer()));
-	GameObjectHandler::addGameObject(ZOMBIE, new Zombie(sf::Vector2f(300, 300), TextureLoader::getTexture("Zombie"), GameObjectHandler::getPlayer()));
+	Player* player = GameObjectHandler::getPlayer();
+
+	Zombie* zombie = ObjectPoolHandler::acquireZombie();
+	zombie->setPlayer(player);
+	zombie->setTexture(TextureLoader::getTexture("Zombie"));
+	zombie->setPosition(100, 100);
+	zombie->lateInit();
+
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
 }
 
 Game::~Game()

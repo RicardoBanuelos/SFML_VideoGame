@@ -16,9 +16,10 @@ public:
 	virtual void init() override;
 	virtual void update(float deltaTime) override;
 	virtual void draw(sf::RenderWindow& window) override;
-	virtual void processCollision(ICollidable& other) override;
+	virtual void processCollision(ICollidable* other) override;
 
 	void takeDamage(float damage);
+	float health();
 private:
 	void checkKeyInput(float deltaTime);
 	void rotate();

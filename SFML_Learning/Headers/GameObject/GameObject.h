@@ -15,7 +15,7 @@ public:
 	virtual void init() = 0;
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
-	virtual void processCollision(ICollidable& other);
+	virtual void processCollision(ICollidable* other);
 
 	bool isReleased();
 	void release();

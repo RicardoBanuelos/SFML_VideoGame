@@ -2,5 +2,5 @@
 
 class ICollidable {
 public:
-    virtual void processCollision(ICollidable& other) = 0;
+    virtual void processCollision(ICollidable* other) = 0;
 };

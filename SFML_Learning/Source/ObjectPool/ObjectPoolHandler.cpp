@@ -1,7 +1,7 @@
 #include "ObjectPool/ObjectPoolHandler.h"
-#include "Bullet/Bullet.h"
 
 ObjectPool<Bullet> ObjectPoolHandler::mBulletPool(30);
+ObjectPool<Zombie> ObjectPoolHandler::mZombiePool(30);
 
 Bullet* ObjectPoolHandler::acquireBullet()
 {
@@ -11,4 +11,14 @@ Bullet* ObjectPoolHandler::acquireBullet()
 void ObjectPoolHandler::releaseBullet(Bullet* bullet)
 {
 	mBulletPool.release(bullet);
+}
+
+Zombie* ObjectPoolHandler::acquireZombie()
+{
+	return mZombiePool.acquire();
+}
+
+void ObjectPoolHandler::releaseZombie(Zombie* zombie)
+{
+	mZombiePool.release(zombie);
 }
