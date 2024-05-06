@@ -49,4 +49,11 @@ namespace GameMath {
 	{
 		return (rand() % max);
 	}
+
+	inline float clamp(float minValue, float maxValue, float value)
+	{
+		if (value < minValue) return minValue;
+		if (value > maxValue) return maxValue;
+		return value;
+	}
 }

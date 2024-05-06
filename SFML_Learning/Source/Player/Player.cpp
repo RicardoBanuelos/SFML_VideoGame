@@ -11,7 +11,8 @@
 #include "GameObject/GameObjectHandler.h"
 
 Player::Player(sf::Vector2f position, const sf::Texture& texture)
-	:	GameObject(position, texture)
+	:	GameObject(position, texture),
+		mHealth(100.0f)
 {
 	init();
 }
@@ -44,6 +45,11 @@ void Player::draw(sf::RenderWindow& window)
 void Player::processCollision(ICollidable& other)
 {
 	std::cout << "Player Collision" << std::endl;
+}
+
+void Player::takeDamage(float damage)
+{
+	mHealth = GameMath::clamp(0, 100, mHealth - damage);
 }
 
 void Player::checkKeyInput(float deltaTime)

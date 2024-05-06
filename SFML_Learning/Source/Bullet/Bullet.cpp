@@ -6,12 +6,14 @@
 #include "GameMath/GameMath.h"
 
 Bullet::Bullet()
+	:	mDamage(50.0f)
 {
 	init();
 }
 
 Bullet::Bullet(sf::Vector2f position, float angle, sf::Texture& texture)
-	:	GameObject(position, texture)
+	:	GameObject(position, texture),
+		mDamage(50.0f)
 {
 	init();
 	setRotation(angle);
@@ -52,6 +54,11 @@ void Bullet::processCollision(ICollidable& other)
 void Bullet::setAngle(float angle)
 {
 	calculateDirection(angle);
+}
+
+float Bullet::damage()
+{
+	return mDamage;
 }
 
 void Bullet::lateInit()

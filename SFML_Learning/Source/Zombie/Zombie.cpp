@@ -7,7 +7,9 @@
 Zombie::Zombie()
 	:	GameObject(),
 		mPlayer(nullptr),
-		mAttackDelay(0.0f)
+		mAttackDelay(0.0f),
+		mHealth(100.0f),
+		mDamage(25.0f)
 {
 	init();
 }
@@ -15,7 +17,9 @@ Zombie::Zombie()
 Zombie::Zombie(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject(position, texture),
 		mPlayer(nullptr),
-		mAttackDelay(0.0f)
+		mAttackDelay(0.0f),
+		mHealth(100.0),
+		mDamage(25.0f)
 {
 	init();;
 }
@@ -23,7 +27,9 @@ Zombie::Zombie(sf::Vector2f position, const sf::Texture& texture)
 Zombie::Zombie(sf::Vector2f position, const sf::Texture & texture, Player * player)
 	:	GameObject(position, texture),
 		mPlayer(player),
-		mAttackDelay(0.0f)
+		mAttackDelay(0.0f),
+		mHealth(100.0),
+		mDamage(25.0f)
 {
 	init();
 }
@@ -68,6 +74,16 @@ void Zombie::draw(sf::RenderWindow& window)
 void Zombie::processCollision(ICollidable& other)
 {
 	
+}
+
+void Zombie::takeDamage(float damage)
+{
+	mHealth = GameMath::clamp(0, 100, mHealth - damage);
+}
+
+float Zombie::damage()
+{
+	return mDamage;
 }
 
 void Zombie::setPlayer(Player* player)

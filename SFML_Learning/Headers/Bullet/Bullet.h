@@ -16,9 +16,13 @@ public:
 	virtual void processCollision(ICollidable& other) override;
 
 	void setAngle(float angle);
+	float damage();
 
 	void lateInit();
 private:
 	void calculateDirection(float angle);
+
 	sf::Vector2f mDirection;
+
+	float mDamage;
 };

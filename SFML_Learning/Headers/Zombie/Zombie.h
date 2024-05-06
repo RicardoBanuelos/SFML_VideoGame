@@ -18,8 +18,14 @@ public:
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void processCollision(ICollidable& other) override;
 
+	void takeDamage(float damage);
+	float damage();
+
 	void setPlayer(Player* player);
 private:
 	Player* mPlayer;
+
 	float mAttackDelay;
+	float mHealth;
+	float mDamage;
 };

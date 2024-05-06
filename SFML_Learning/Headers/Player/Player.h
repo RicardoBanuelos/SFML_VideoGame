@@ -18,6 +18,7 @@ public:
 	virtual void draw(sf::RenderWindow& window) override;
 	virtual void processCollision(ICollidable& other) override;
 
+	void takeDamage(float damage);
 private:
 	void checkKeyInput(float deltaTime);
 	void rotate();
@@ -25,4 +26,6 @@ private:
 
 	sf::Vector2f getWeaponOffsetPosition(WeaponID weapon);
 	sf::RectangleShape mBulletStartPoint;
+
+	float mHealth;
 };
