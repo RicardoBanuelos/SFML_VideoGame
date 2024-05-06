@@ -21,4 +21,5 @@ public:
 	void setPlayer(Player* player);
 private:
 	Player* mPlayer;
+	float mAttackDelay;
 };

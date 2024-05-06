@@ -71,16 +71,8 @@ void GameObjectHandler::detectCollisions()
 	for (auto&& [id, objectSet] : mGameObjects)
 	{
 		for (auto object : objectSet)
-		{
-			if (object->id() == ZOMBIE)
-			{
-				if (mTriggeredZombies.count(object) == 0 && GameMath::isColliding(object->hitbox(), mPlayer->hitbox()))
-				{
-					object->processCollision(*mPlayer);
-					mTriggeredZombies.insert(object);
-				}
-			}
-			else if (object->id() == BULLET)
+		{			
+			if (object->id() == BULLET)
 			{
 				for (auto& zombie : mGameObjects[ZOMBIE])
 				{

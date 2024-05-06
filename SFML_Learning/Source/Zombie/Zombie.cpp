@@ -6,21 +6,24 @@
 
 Zombie::Zombie()
 	:	GameObject(),
-		mPlayer(nullptr)
+		mPlayer(nullptr),
+		mAttackDelay(0.0f)
 {
 	init();
 }
 
 Zombie::Zombie(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject(position, texture),
-		mPlayer(nullptr)
+		mPlayer(nullptr),
+		mAttackDelay(0.0f)
 {
 	init();;
 }
 
 Zombie::Zombie(sf::Vector2f position, const sf::Texture & texture, Player * player)
 	:	GameObject(position, texture),
-		mPlayer(player)
+		mPlayer(player),
+		mAttackDelay(0.0f)
 {
 	init();
 }
@@ -35,6 +38,8 @@ void Zombie::init()
 
 void Zombie::update(float deltaTime)
 {
+	mAttackDelay += deltaTime;
+
 	if (mPlayer)
 	{
 		sf::Vector2f direction = mPlayer->getPosition() - getPosition();
@@ -44,6 +49,12 @@ void Zombie::update(float deltaTime)
 
 		move(mSpeed * direction * deltaTime);
 		setRotation(angle);
+
+		if (GameMath::isColliding(getGlobalBounds(), mPlayer->getGlobalBounds()) && mAttackDelay >= 1.0f)
+		{
+			mAttackDelay = 0.0f;
+			std::cout << "Zombie Collision" << std::endl;
+		}
 	}
 
 	GameObject::update(deltaTime);
@@ -56,7 +67,7 @@ void Zombie::draw(sf::RenderWindow& window)
 
 void Zombie::processCollision(ICollidable& other)
 {
-	std::cout << "Zombie Collision" << std::endl;
+	
 }
 
 void Zombie::setPlayer(Player* player)
