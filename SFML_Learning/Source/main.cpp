@@ -11,5 +11,7 @@ int main()
 	Game game;
 	game.run();
 
+	TextureLoader::dropAllTextures();
+
 	return 0;
 }

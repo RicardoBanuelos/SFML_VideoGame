@@ -21,6 +21,11 @@ bool TextureLoader::loadAllTextures()
 	return true;
 }
 
+ void TextureLoader::dropAllTextures()
+{	
+	 mTexturesMap.clear();
+}
+
 bool TextureLoader::loadTexture(const std::string& textureName, const std::string& texturePath)
 {
 	sf::Texture texture;

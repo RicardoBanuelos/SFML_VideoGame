@@ -9,6 +9,8 @@ public:
 	TextureLoader() = delete;
 
 	static bool loadAllTextures();
+	static void dropAllTextures();
+
 	static bool loadTexture(const std::string& textureName, const std::string& texturePath);
 	static sf::Texture& getTexture(const std::string& textureName);
 
