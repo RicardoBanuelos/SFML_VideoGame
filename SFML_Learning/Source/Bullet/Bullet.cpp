@@ -23,7 +23,7 @@ void Bullet::init()
 	mSpeed = 10000.0f;
 	mReleased = true;
 
-	setTexture(TextureLoader::getTexture("Bullet"));
+	setTexture(TextureLoader::getTexture(TextureData::TID_BULLET));
 	initHitBox();
 	alignCenter();
 }

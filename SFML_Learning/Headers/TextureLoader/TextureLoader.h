@@ -4,6 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "TextureLoader/TextureData.h"
+
 class TextureLoader {
 public:
 	TextureLoader() = delete;
@@ -11,10 +13,10 @@ public:
 	static bool loadAllTextures();
 	static void dropAllTextures();
 
-	static bool loadTexture(const std::string& textureName, const std::string& texturePath);
-	static sf::Texture& getTexture(const std::string& textureName);
+	static sf::Texture& getTexture(TextureData::TextureID id);
 
 private:
-	static bool mTexturesReady;
-	static std::unordered_map<std::string, sf::Texture> mTexturesMap;
+	static bool loadTexture(TextureData::TextureID id, const std::string& texturePath);
+
+	static std::unordered_map<TextureData::TextureID, sf::Texture> mTexturesMap;
 };

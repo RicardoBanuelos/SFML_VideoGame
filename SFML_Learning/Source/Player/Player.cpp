@@ -27,7 +27,7 @@ void Player::init()
 {
 	mID = PLAYER;
 	mSpeed = 1000.0f;
-	setTexture(TextureLoader::getTexture("Player"));
+	setTexture(TextureLoader::getTexture(TextureData::TID_PLAYER_IDLE));
 	initHitBox();
 	alignCenter();
 }

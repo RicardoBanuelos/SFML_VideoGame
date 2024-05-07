@@ -76,7 +76,7 @@
     <ClInclude Include="Headers\TextureLoader\TextureLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\TextureLoader\TextureStrings.h">
+    <ClInclude Include="Headers\TextureLoader\TextureData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Game\Game.h">

@@ -4,9 +4,6 @@
 
 #include "MousePosition/MousePosition.h"
 
-#include "TextureLoader/TextureLoader.h"
-#include "TextureLoader/TextureStrings.h"
-
 #include "GameObject/GameObjectHandler.h"
 #include "GameObject/GameObjectBuilder.h"
 

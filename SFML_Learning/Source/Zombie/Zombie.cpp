@@ -36,7 +36,7 @@ void Zombie::init()
 {
 	mID = ZOMBIE;
 	mSpeed = 300.0f;
-	setTexture(TextureLoader::getTexture("Zombie"));
+	setTexture(TextureLoader::getTexture(TextureData::TID_ZOMBIE_IDLE));
 	initHitBox();
 	alignCenter();
 }

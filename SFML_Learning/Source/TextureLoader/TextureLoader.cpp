@@ -1,16 +1,15 @@
 #include "TextureLoader/TextureLoader.h"
-#include "TextureLoader/TextureStrings.h"
+#include "TextureLoader/TextureData.h"
 
 #include <iostream>
 
-bool TextureLoader::mTexturesReady = false;
-std::unordered_map<std::string, sf::Texture> TextureLoader::mTexturesMap;
+std::unordered_map<TextureData::TextureID, sf::Texture> TextureLoader::mTexturesMap;
 
 bool TextureLoader::loadAllTextures()
 {
-	for (auto& [name, path] : TextureStrings::texturePaths)
+	for (auto& [ID, path] : TextureData::texturePaths)
 	{
-		if (!loadTexture(name, path))
+		if (!loadTexture(ID, path))
 		{
 			std::cout << "Failed loading textures." << std::endl;
 			return false;
@@ -26,7 +25,7 @@ bool TextureLoader::loadAllTextures()
 	 mTexturesMap.clear();
 }
 
-bool TextureLoader::loadTexture(const std::string& textureName, const std::string& texturePath)
+bool TextureLoader::loadTexture(TextureData::TextureID id, const std::string& texturePath)
 {
 	sf::Texture texture;
 
@@ -35,11 +34,11 @@ bool TextureLoader::loadTexture(const std::string& textureName, const std::strin
 		return false;
 	}
 
-	mTexturesMap[textureName] = texture;
+	mTexturesMap[id] = texture;
 	return true;
 }
 
-sf::Texture& TextureLoader::getTexture(const std::string& textureName)
+sf::Texture& TextureLoader::getTexture(TextureData::TextureID id)
 {
-	return mTexturesMap[textureName];
+	return mTexturesMap[id];
 }

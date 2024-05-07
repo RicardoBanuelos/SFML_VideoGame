@@ -166,7 +166,7 @@
     <ClInclude Include="Headers\Player\Player.h" />
     <ClInclude Include="Headers\Player\Weapons.h" />
     <ClInclude Include="Headers\TextureLoader\TextureLoader.h" />
-    <ClInclude Include="Headers\TextureLoader\TextureStrings.h" />
+    <ClInclude Include="Headers\TextureLoader\TextureData.h" />
     <ClInclude Include="Headers\Zombie\Zombie.h" />
     <ClInclude Include="Headers\ObjectPool\ObjectPoolHandler.h" />
   </ItemGroup>
