@@ -7,6 +7,9 @@
 
 #include <iostream>
 
+const float Zombie::OVERLAPPING_THRESHOLD = 150.0f;
+const float Zombie::OVERLAPPING_FACTOR = -50.0f;
+
 Zombie::Zombie()
 	:	GameObject(),
 		mPlayer(nullptr),
@@ -72,10 +75,10 @@ void Zombie::update(float deltaTime)
 		sf::Vector2f direction = otherZombie->getPosition() - getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y + direction.y);
 
-		if (distance < 150.0f)
+		if (distance < OVERLAPPING_THRESHOLD)
 		{
 			direction = GameMath::normalize(direction);
-			move(direction * (- 50.0f) * deltaTime);
+			move(direction * (OVERLAPPING_FACTOR) * deltaTime);
 		}
 	}
 

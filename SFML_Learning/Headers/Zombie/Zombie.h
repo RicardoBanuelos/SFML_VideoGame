@@ -27,4 +27,7 @@ private:
 	float mAttackDelay;
 	float mHealth;
 	float mDamage;
+
+	static const float OVERLAPPING_THRESHOLD;
+	static const float OVERLAPPING_FACTOR;
 };
