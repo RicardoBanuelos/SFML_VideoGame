@@ -3,6 +3,7 @@
 #include "GameMath/GameMath.h"
 
 #include "TextureLoader/TextureLoader.h"
+#include "GameObject/GameObjectHandler.h"
 
 #include <iostream>
 
@@ -61,7 +62,20 @@ void Zombie::update(float deltaTime)
 		{
 			mAttackDelay = 0.0f;
 			mPlayer->takeDamage(damage());
-			std::cout << "HP: " << mPlayer->health() << std::endl;
+		}
+	}
+
+	std::unordered_set<GameObject*> otherZombies = GameObjectHandler::getByID(ZOMBIE);
+	for (auto& otherZombie : otherZombies)
+	{
+		if (this == otherZombie) continue;
+		sf::Vector2f direction = otherZombie->getPosition() - getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y + direction.y);
+
+		if (distance < 200.0f)
+		{
+			direction = GameMath::normalize(direction);
+			move(direction * (- 80.0f) * deltaTime);
 		}
 	}
 

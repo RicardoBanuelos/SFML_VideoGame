@@ -27,6 +27,15 @@ Game::Game()
 
 	Zombie* zombie = GameObjectBuilder::buildZombie(sf::Vector2f(100, 100), player);
 	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(300, 300), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(400, 400), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(500, 500), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
 }
 
 Game::~Game()
