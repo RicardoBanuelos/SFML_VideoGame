@@ -9,6 +9,7 @@
 
 #include "ObjectPool/ObjectPoolHandler.h"
 #include "GameObject/GameObjectHandler.h"
+#include "GameObject/GameObjectBuilder.h"
 
 Player::Player(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject(position, texture),
@@ -103,14 +104,7 @@ void Player::shoot(float deltaTime)
 	{
 		accumTime = 0; 
 
-		Bullet* bullet = ObjectPoolHandler::acquireBullet();
-		bullet->setPosition(mBulletStartPoint.getPosition());
-		bullet->setRotation(getRotation());
-		bullet->setAngle(getRotation());
-		bullet->unRelease();
-		bullet->setTexture(TextureLoader::getTexture("Bullet"));
-		bullet->lateInit();
-
+		Bullet* bullet = GameObjectBuilder::buildBullet(mBulletStartPoint.getPosition(), getRotation());
 		GameObjectHandler::addGameObject(BULLET, bullet);
 	}
 }

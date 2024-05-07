@@ -23,7 +23,7 @@ Game::Game()
 
 	Player* player = GameObjectHandler::getPlayer();
 
-	Zombie* zombie = ObjectPoolHandler::acquireZombie();
+	Zombie* zombie = ObjectPoolHandler::instance()->acquireZombie();
 	zombie->setPlayer(player);
 	zombie->setTexture(TextureLoader::getTexture("Zombie"));
 	zombie->setPosition(100, 100);

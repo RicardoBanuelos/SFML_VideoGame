@@ -1,7 +1,11 @@
 #include "ObjectPool/ObjectPoolHandler.h"
 
-ObjectPool<Bullet> ObjectPoolHandler::mBulletPool(30);
-ObjectPool<Zombie> ObjectPoolHandler::mZombiePool(30);
+ObjectPoolHandler* ObjectPoolHandler::mInstance = nullptr;
+
+ObjectPoolHandler::ObjectPoolHandler()
+	:	mBulletPool(50),
+		mZombiePool(50)
+{}
 
 Bullet* ObjectPoolHandler::acquireBullet()
 {

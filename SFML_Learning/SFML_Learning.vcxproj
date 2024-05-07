@@ -135,10 +135,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Headers\ObjectPool\ObjectPoolHandler.h" />
     <ClCompile Include="Source\Bullet\Bullet.cpp" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
+    <ClCompile Include="Source\GameObject\GameObjectBuilder.cpp" />
     <ClCompile Include="Source\GameObject\GameObjectHandler.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -157,6 +157,7 @@
     <ClInclude Include="Headers\Collisions\ICollidable.h" />
     <ClInclude Include="Headers\GameMath\GameMath.h" />
     <ClInclude Include="Headers\GameObject\GameObject.h" />
+    <ClInclude Include="Headers\GameObject\GameObjectBuilder.h" />
     <ClInclude Include="Headers\GameObject\GameObjectHandler.h" />
     <ClInclude Include="Headers\GameObject\GameObjectIDs.h" />
     <ClInclude Include="Headers\Game\Game.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Headers\TextureLoader\TextureLoader.h" />
     <ClInclude Include="Headers\TextureLoader\TextureStrings.h" />
     <ClInclude Include="Headers\Zombie\Zombie.h" />
+    <ClInclude Include="Headers\ObjectPool\ObjectPoolHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

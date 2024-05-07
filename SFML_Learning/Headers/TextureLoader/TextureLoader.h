@@ -13,5 +13,6 @@ public:
 	static sf::Texture& getTexture(const std::string& textureName);
 
 private:
+	static bool mTexturesReady;
 	static std::unordered_map<std::string, sf::Texture> mTexturesMap;
 };

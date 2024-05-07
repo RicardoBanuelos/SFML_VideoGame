@@ -5,14 +5,15 @@ GameObject::GameObject()
 		mHitBox(),
 		mSpeed(0.0f),
 		mReleased(false)
-{
-}
+{}
+
+GameObject::GameObject(sf::Vector2f position)
+	:	GameObject()
+{}
 
 GameObject::GameObject(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject()
 {
-	mReleased = false;
-
 	setTexture(texture);
 	setPosition(position);
 

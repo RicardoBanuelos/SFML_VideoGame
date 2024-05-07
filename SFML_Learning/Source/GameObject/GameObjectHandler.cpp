@@ -91,11 +91,11 @@ void GameObjectHandler::detectCollisions()
 
 				if (id == BULLET)
 				{
-					ObjectPoolHandler::releaseBullet(dynamic_cast<Bullet*>(object));
+					ObjectPoolHandler::instance()->releaseBullet(dynamic_cast<Bullet*>(object));
 				}
 				else if (id == ZOMBIE)
 				{
-					ObjectPoolHandler::releaseZombie(dynamic_cast<Zombie*>(object));
+					ObjectPoolHandler::instance()->releaseZombie(dynamic_cast<Zombie*>(object));
 				}
 					
 

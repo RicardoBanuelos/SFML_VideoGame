@@ -6,10 +6,16 @@
 #include "GameMath/GameMath.h"
 #include "Zombie/Zombie.h"
 
+#include "TextureLoader/TextureLoader.h"
+
 Bullet::Bullet()
-	:	mDamage(25.0f)
+	:	GameObject(),
+		mDamage(25.0f)
 {
 	init();
+	setTexture(TextureLoader::getTexture("Bullet"));
+	initHitBox();
+	alignCenter();
 }
 
 Bullet::Bullet(sf::Vector2f position, float angle, sf::Texture& texture)
@@ -27,6 +33,7 @@ void Bullet::init()
 {
 	mID = BULLET;
 	mSpeed = 10000.0f;
+	mReleased = true;
 }
 
 void Bullet::update(float deltaTime)

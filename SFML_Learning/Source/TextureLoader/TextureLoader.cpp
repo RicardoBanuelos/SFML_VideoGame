@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+bool TextureLoader::mTexturesReady = false;
 std::unordered_map<std::string, sf::Texture> TextureLoader::mTexturesMap;
 
 bool TextureLoader::loadAllTextures()

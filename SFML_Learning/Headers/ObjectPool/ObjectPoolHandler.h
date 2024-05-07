@@ -6,15 +6,28 @@
 
 class ObjectPoolHandler {
 public:
-	ObjectPoolHandler() = delete;
+	static ObjectPoolHandler* instance()
+	{
+		if (mInstance == nullptr)
+		{
+			mInstance = new ObjectPoolHandler();
+		}
 
-	static Bullet* acquireBullet();
-	static void releaseBullet(Bullet* bullet);
+		return mInstance;
+	}
 
-	static Zombie* acquireZombie();
-	static void releaseZombie(Zombie* zombie);
+	~ObjectPoolHandler() {}
+
+	Bullet* acquireBullet();
+	void releaseBullet(Bullet* bullet);
+
+	Zombie* acquireZombie();
+	void releaseZombie(Zombie* zombie);
+
+	static ObjectPoolHandler* mInstance;
 
 private:
-	static ObjectPool<Bullet> mBulletPool;
-	static ObjectPool<Zombie> mZombiePool;
+	ObjectPoolHandler();
+	ObjectPool<Bullet> mBulletPool;
+	ObjectPool<Zombie> mZombiePool;
 };
