@@ -14,9 +14,6 @@ Zombie::Zombie()
 		mDamage(25.0f)
 {
 	init();
-	setTexture(TextureLoader::getTexture("Zombie"));
-	initHitBox();
-	alignCenter();
 }
 
 Zombie::Zombie(sf::Vector2f position)
@@ -27,9 +24,6 @@ Zombie::Zombie(sf::Vector2f position)
 		mDamage(25.0f)
 {
 	init();
-	setTexture(TextureLoader::getTexture("Zombie"));
-	initHitBox();
-	alignCenter();
 }
 
 Zombie::~Zombie() {}
@@ -38,7 +32,9 @@ void Zombie::init()
 {
 	mID = ZOMBIE;
 	mSpeed = 200.0f;
+	setTexture(TextureLoader::getTexture("Zombie"));
 	initHitBox();
+	alignCenter();
 }
 
 void Zombie::update(float deltaTime)

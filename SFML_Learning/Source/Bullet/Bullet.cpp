@@ -13,9 +13,6 @@ Bullet::Bullet()
 		mDamage(25.0f)
 {
 	init();
-	setTexture(TextureLoader::getTexture("Bullet"));
-	initHitBox();
-	alignCenter();
 }
 
 Bullet::~Bullet(){}
@@ -25,6 +22,10 @@ void Bullet::init()
 	mID = BULLET;
 	mSpeed = 10000.0f;
 	mReleased = true;
+
+	setTexture(TextureLoader::getTexture("Bullet"));
+	initHitBox();
+	alignCenter();
 }
 
 void Bullet::update(float deltaTime)

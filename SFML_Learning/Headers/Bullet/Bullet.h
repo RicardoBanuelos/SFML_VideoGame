@@ -20,6 +20,5 @@ private:
 	void calculateDirection(float angle);
 
 	sf::Vector2f mDirection;
-
 	float mDamage;
 };

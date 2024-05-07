@@ -18,9 +18,6 @@ Player::Player(sf::Vector2f position)
 		mHealth(100.0f)
 {
 	init();
-	setTexture(TextureLoader::getTexture("Player"));
-	initHitBox();
-	alignCenter();
 }
 
 Player::~Player() 
@@ -30,6 +27,9 @@ void Player::init()
 {
 	mID = PLAYER;
 	mSpeed = 1000.0f;
+	setTexture(TextureLoader::getTexture("Player"));
+	initHitBox();
+	alignCenter();
 }
 
 void Player::update(float deltaTime)
