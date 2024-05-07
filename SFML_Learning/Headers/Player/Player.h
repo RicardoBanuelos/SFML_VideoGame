@@ -10,6 +10,7 @@
 class Player : public GameObject
 {
 public:
+	Player(sf::Vector2f position);
 	Player(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~Player();
 

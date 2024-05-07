@@ -11,6 +11,18 @@
 #include "GameObject/GameObjectHandler.h"
 #include "GameObject/GameObjectBuilder.h"
 
+#include "TextureLoader/TextureLoader.h"
+
+Player::Player(sf::Vector2f position)
+	:	GameObject(position),
+		mHealth(100.0f)
+{
+	init();
+	setTexture(TextureLoader::getTexture("Player"));
+	initHitBox();
+	alignCenter();
+}
+
 Player::Player(sf::Vector2f position, const sf::Texture& texture)
 	:	GameObject(position, texture),
 		mHealth(100.0f)

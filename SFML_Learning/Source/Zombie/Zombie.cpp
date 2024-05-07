@@ -2,6 +2,8 @@
 #include "Player/Player.h"
 #include "GameMath/GameMath.h"
 
+#include "TextureLoader/TextureLoader.h"
+
 #include <iostream>
 
 Zombie::Zombie()
@@ -12,6 +14,22 @@ Zombie::Zombie()
 		mDamage(25.0f)
 {
 	init();
+	setTexture(TextureLoader::getTexture("Zombie"));
+	initHitBox();
+	alignCenter();
+}
+
+Zombie::Zombie(sf::Vector2f position)
+	:	GameObject(position),
+		mPlayer(nullptr),
+		mAttackDelay(0.0f),
+		mHealth(100.0f),
+		mDamage(25.0f)
+{
+	init();
+	setTexture(TextureLoader::getTexture("Zombie"));
+	initHitBox();
+	alignCenter();
 }
 
 Zombie::Zombie(sf::Vector2f position, const sf::Texture& texture)

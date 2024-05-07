@@ -18,3 +18,13 @@ Bullet* GameObjectBuilder::buildBullet(sf::Vector2f position, float angle)
 
 	return bullet;
 }
+
+Zombie* GameObjectBuilder::buildZombie(sf::Vector2f position, Player* player)
+{
+	Zombie* zombie = ObjectPoolHandler::instance()->acquireZombie();
+
+	zombie->setPosition(position);
+	zombie->setPlayer(player);
+
+	return zombie;
+}

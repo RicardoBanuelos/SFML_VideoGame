@@ -9,6 +9,7 @@ class Zombie : public GameObject
 {
 public:
 	Zombie();
+	Zombie(sf::Vector2f position);
 	Zombie(sf::Vector2f position, const sf::Texture& texture);
 	Zombie(sf::Vector2f position, const sf::Texture& texture, Player* player);
 	virtual ~Zombie();

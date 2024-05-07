@@ -8,6 +8,8 @@
 #include "TextureLoader/TextureStrings.h"
 
 #include "GameObject/GameObjectHandler.h"
+#include "GameObject/GameObjectBuilder.h"
+
 #include "Player/Player.h"
 #include "Zombie/Zombie.h"
 
@@ -23,12 +25,7 @@ Game::Game()
 
 	Player* player = GameObjectHandler::getPlayer();
 
-	Zombie* zombie = ObjectPoolHandler::instance()->acquireZombie();
-	zombie->setPlayer(player);
-	zombie->setTexture(TextureLoader::getTexture("Zombie"));
-	zombie->setPosition(100, 100);
-	zombie->lateInit();
-
+	Zombie* zombie = GameObjectBuilder::buildZombie(sf::Vector2f(100, 100), player);
 	GameObjectHandler::addGameObject(ZOMBIE, zombie);
 }
 
