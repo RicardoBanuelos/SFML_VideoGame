@@ -32,7 +32,7 @@ Zombie::~Zombie() {}
 void Zombie::init()
 {
 	mID = ZOMBIE;
-	mSpeed = 200.0f;
+	mSpeed = 300.0f;
 	setTexture(TextureLoader::getTexture("Zombie"));
 	initHitBox();
 	alignCenter();
@@ -72,10 +72,10 @@ void Zombie::update(float deltaTime)
 		sf::Vector2f direction = otherZombie->getPosition() - getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y + direction.y);
 
-		if (distance < 200.0f)
+		if (distance < 150.0f)
 		{
 			direction = GameMath::normalize(direction);
-			move(direction * (- 80.0f) * deltaTime);
+			move(direction * (- 50.0f) * deltaTime);
 		}
 	}
 
