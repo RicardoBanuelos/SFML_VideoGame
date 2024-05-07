@@ -30,6 +30,7 @@ protected:
 	sf::RectangleShape mHitBox;
 	float mSpeed;
 	bool mReleased;
+
 	void initHitBox();
 	void alignCenter();
 };

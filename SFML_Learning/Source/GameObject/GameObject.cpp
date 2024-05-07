@@ -9,7 +9,9 @@ GameObject::GameObject()
 
 GameObject::GameObject(sf::Vector2f position)
 	:	GameObject()
-{}
+{
+	setPosition(position);
+}
 
 GameObject::~GameObject()
 {
