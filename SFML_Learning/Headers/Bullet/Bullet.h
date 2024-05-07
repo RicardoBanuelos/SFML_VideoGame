@@ -7,7 +7,6 @@ class Bullet : public GameObject
 {
 public:
 	Bullet();
-	Bullet(sf::Vector2f position, float angle, sf::Texture& texture);
 	virtual ~Bullet();
 
 	virtual void init() override;
@@ -17,8 +16,6 @@ public:
 
 	void setAngle(float angle);
 	float damage();
-
-	void lateInit();
 private:
 	void calculateDirection(float angle);
 

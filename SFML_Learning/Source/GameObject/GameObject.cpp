@@ -11,16 +11,6 @@ GameObject::GameObject(sf::Vector2f position)
 	:	GameObject()
 {}
 
-GameObject::GameObject(sf::Vector2f position, const sf::Texture& texture)
-	:	GameObject()
-{
-	setTexture(texture);
-	setPosition(position);
-
-	initHitBox();
-	alignCenter();
-}
-
 GameObject::~GameObject()
 {
 

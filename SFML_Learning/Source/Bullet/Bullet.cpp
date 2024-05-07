@@ -18,15 +18,6 @@ Bullet::Bullet()
 	alignCenter();
 }
 
-Bullet::Bullet(sf::Vector2f position, float angle, sf::Texture& texture)
-	:	GameObject(position, texture),
-		mDamage(25.0f)
-{
-	init();
-	setRotation(angle);
-	calculateDirection(angle);
-}
-
 Bullet::~Bullet(){}
 
 void Bullet::init()
@@ -71,12 +62,6 @@ void Bullet::setAngle(float angle)
 float Bullet::damage()
 {
 	return mDamage;
-}
-
-void Bullet::lateInit()
-{
-	initHitBox();
-	alignCenter();
 }
 
 void Bullet::calculateDirection(float angle)

@@ -21,7 +21,7 @@ Game::Game()
 	mCamera(mWindow->getSize().x, mWindow->getSize().y)
 {
 	mWindow->setVerticalSyncEnabled(true);
-	GameObjectHandler::setPlayer(new Player(sf::Vector2f(1920 / 2, 1080 / 2), TextureLoader::getTexture("Player")));
+	GameObjectHandler::setPlayer(new Player(sf::Vector2f(1920 / 2, 1080 / 2)));
 
 	Player* player = GameObjectHandler::getPlayer();
 

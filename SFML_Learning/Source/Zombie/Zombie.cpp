@@ -32,26 +32,6 @@ Zombie::Zombie(sf::Vector2f position)
 	alignCenter();
 }
 
-Zombie::Zombie(sf::Vector2f position, const sf::Texture& texture)
-	:	GameObject(position, texture),
-		mPlayer(nullptr),
-		mAttackDelay(0.0f),
-		mHealth(100.0),
-		mDamage(25.0f)
-{
-	init();
-}
-
-Zombie::Zombie(sf::Vector2f position, const sf::Texture & texture, Player * player)
-	:	GameObject(position, texture),
-		mPlayer(player),
-		mAttackDelay(0.0f),
-		mHealth(100.0),
-		mDamage(25.0f)
-{
-	init();
-}
-
 Zombie::~Zombie() {}
 
 void Zombie::init()
@@ -110,12 +90,6 @@ void Zombie::takeDamage(float damage)
 float Zombie::damage()
 {
 	return mDamage;
-}
-
-void Zombie::lateInit()
-{
-	initHitBox();
-	alignCenter();
 }
 
 void Zombie::setPlayer(Player* player)

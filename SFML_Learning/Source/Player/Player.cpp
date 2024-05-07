@@ -23,13 +23,6 @@ Player::Player(sf::Vector2f position)
 	alignCenter();
 }
 
-Player::Player(sf::Vector2f position, const sf::Texture& texture)
-	:	GameObject(position, texture),
-		mHealth(100.0f)
-{
-	init();
-}
-
 Player::~Player() 
 {}
 

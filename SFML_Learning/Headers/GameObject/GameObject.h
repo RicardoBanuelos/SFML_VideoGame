@@ -10,7 +10,6 @@ class GameObject : public sf::Sprite, public ICollidable
 public:
 	GameObject();
 	GameObject(sf::Vector2f position);
-	GameObject(sf::Vector2f position, const sf::Texture& texture);
 	virtual ~GameObject();
 
 	virtual void init() = 0;
