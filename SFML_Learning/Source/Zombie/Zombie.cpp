@@ -36,7 +36,11 @@ void Zombie::init()
 {
 	mID = ZOMBIE;
 	mSpeed = 300.0f;
-	setTexture(TextureLoader::getTexture(TextureData::TID_ZOMBIE_IDLE));
+
+	mAnimation = new Animation(*this, 15, 0.05f, 288, 311);
+
+	setTexture(TextureLoader::getTexture(TextureData::TID_ZOMBIE_WALK_SHEET));
+	setTextureRect(sf::IntRect(0, 0, 288, 311));
 	initHitBox();
 	alignCenter();
 }
@@ -48,6 +52,8 @@ void Zombie::update(float deltaTime)
 		release();
 		return;
 	}
+
+	mAnimation->update(deltaTime);
 
 	mAttackDelay += deltaTime;
 
@@ -97,7 +103,7 @@ void Zombie::processCollision(ICollidable* other)
 
 void Zombie::takeDamage(float damage)
 {
-	mHealth = GameMath::clamp(0, 100, mHealth - damage);
+	mHealth = GameMath::clamp<float>(0, 100, mHealth - damage);
 }
 
 float Zombie::damage()

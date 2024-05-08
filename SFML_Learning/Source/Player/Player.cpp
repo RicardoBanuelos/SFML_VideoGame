@@ -55,7 +55,7 @@ void Player::processCollision(ICollidable* other)
 
 void Player::takeDamage(float damage)
 {
-	mHealth = GameMath::clamp(0, 100, mHealth - damage);
+	mHealth = GameMath::clamp<float>(0, 100, mHealth - damage);
 }
 
 float Player::health()

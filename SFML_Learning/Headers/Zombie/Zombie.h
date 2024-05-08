@@ -3,6 +3,8 @@
 #include "GameObject/GameObject.h"
 #include "Collisions/ICollidable.h"
 
+#include "Animation/Animation.h"
+
 class Player;
 
 class Zombie : public GameObject
@@ -27,6 +29,8 @@ private:
 	float mAttackDelay;
 	float mHealth;
 	float mDamage;
+
+	Animation* mAnimation;
 
 	static const float OVERLAPPING_THRESHOLD;
 	static const float OVERLAPPING_FACTOR;

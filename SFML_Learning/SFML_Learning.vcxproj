@@ -102,7 +102,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;SFML_STATIC;TESTING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Ricardo\Documents\GitHub\SFML_VideoGame\SFML_Learning\Headers;C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Animation\Animation.cpp" />
     <ClCompile Include="Source\Bullet\Bullet.cpp" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
@@ -152,6 +153,7 @@
     <Image Include="Textures\dirt.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Animation\Animation.h" />
     <ClInclude Include="Headers\Bullet\Bullet.h" />
     <ClInclude Include="Headers\Camera\Camera.h" />
     <ClInclude Include="Headers\Collisions\ICollidable.h" />
