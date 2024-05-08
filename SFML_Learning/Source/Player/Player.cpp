@@ -15,7 +15,8 @@
 
 Player::Player(sf::Vector2f position)
 	:	GameObject(position),
-		mHealth(100.0f)
+		mHealth(100.0f),
+		mBulletCount(12)
 {
 	init();
 }
@@ -30,11 +31,11 @@ void Player::init()
 	mSpeed = 1000.0f;
 
 	setTexture(TextureLoader::getTexture(TextureData::TID_PLAYER));
-	setTextureRect(sf::IntRect(0, 0, 253, 216));
+	setTextureRect(sf::IntRect(0, 0, 255, 215));
 	initHitBox();
 	alignCenter();
 
-	mAnimations = new Animation(*this, 1, 100.0f, 0, 253, 216);
+	mAnimations = new Animation(*this, 1, 100.0f, 0, 255, 215);
 }
 
 void Player::update(float deltaTime)
@@ -43,9 +44,16 @@ void Player::update(float deltaTime)
 	rotate();
 
 	mAnimations->update(deltaTime);
-
 	mBulletStartPoint.setPosition(getWeaponOffsetPosition(HANDGUN));
-	shoot(deltaTime);
+
+	if (mState == PS_RELOADING)
+	{
+		handleReloading(deltaTime);
+	}
+	else 
+	{
+		shoot(deltaTime);
+	}
 
 	GameObject::update(deltaTime);
 }
@@ -107,6 +115,19 @@ void Player::rotate()
 	mHitBox.setRotation(angle);
 }
 
+void Player::handleReloading(float deltaTime)
+{
+	mReloadingTimer += deltaTime;
+	if (mReloadingTimer >= 1.0f)
+	{
+		mState = PS_WALKING;
+		mReloadingTimer = 0.0;
+		mBulletCount = 4;
+		std::cout << "Walking Animation" << std::endl;
+		playWalkingAnimation();
+	}
+}
+
 void Player::shoot(float deltaTime)
 {
 	static float accumTime = 0;
@@ -121,6 +142,7 @@ void Player::shoot(float deltaTime)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && accumTime >= 0.25f)
 	{
 		accumTime = 0; 
+		--mBulletCount;
 
 		mState = PS_SHOOTING;
 		playShootingAnimation();
@@ -128,20 +150,33 @@ void Player::shoot(float deltaTime)
 		Bullet* bullet = GameObjectBuilder::buildBullet(mBulletStartPoint.getPosition(), getRotation());
 		GameObjectHandler::addGameObject(BULLET, bullet);
 	}
+
+	if (mBulletCount == 0)
+	{
+		mState = PS_RELOADING;
+		playReloadingAnimation();
+	}
 }
 
 void Player::playWalkingAnimation()
 {
 	mAnimations->setRow(0);
 	mAnimations->setFrameCount(1);
-	mAnimations->setFrameDuration(100.0f);
+	mAnimations->setFrameDuration(0.1f);
 }
 
 void Player::playShootingAnimation()
 {
-	mAnimations->setRow(1);
+	mAnimations->setRow(2);
 	mAnimations->setFrameCount(3);
 	mAnimations->setFrameDuration(0.083f);
+}
+
+void Player::playReloadingAnimation()
+{
+	mAnimations->setRow(1);
+	mAnimations->setFrameCount(15);
+	mAnimations->setFrameDuration(0.0667f);
 }
 
 sf::Vector2f Player::getWeaponOffsetPosition(WeaponID weapon)

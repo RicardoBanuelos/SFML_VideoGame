@@ -22,14 +22,17 @@ private:
 	enum PlayerState {
 		PS_WALKING,
 		PS_SHOOTING,
+		PS_RELOADING
 	};
 
 	void checkKeyInput(float deltaTime);
 	void rotate();
+	void handleReloading(float deltaTime);
 	void shoot(float deltaTime);
 
 	void playWalkingAnimation();
 	void playShootingAnimation();
+	void playReloadingAnimation();
 
 	PlayerState mState;
 
@@ -38,4 +41,6 @@ private:
 	sf::RectangleShape mBulletStartPoint;
 
 	float mHealth;
+	int mBulletCount;
+	float mReloadingTimer = 0.0f;
 };
