@@ -139,10 +139,12 @@ void Zombie::playWalkingAnimation()
 {
 	mAnimations->setRow(1);
 	mAnimations->setFrameCount(15);
+	mAnimations->setFrameDuration(0.05f);
 }
 
 void Zombie::playPunchAnimation()
 {
 	mAnimations->setRow(0);
 	mAnimations->setFrameCount(7);
+	mAnimations->setFrameDuration(0.07142857);
 }
