@@ -34,13 +34,15 @@ Zombie::~Zombie() {}
 
 void Zombie::init()
 {
+	mPreviousState = ZS_WALKING;
+	mState = ZS_WALKING;
 	mID = ZOMBIE;
 	mSpeed = 300.0f;
 
-	mAnimation = new Animation(*this, 15, 0.05f, 288, 311);
+	mAnimations = new Animation(*this, 15, 0.05f, 1, 288, 311);
 
-	setTexture(TextureLoader::getTexture(TextureData::TID_ZOMBIE_WALK_SHEET));
-	setTextureRect(sf::IntRect(0, 0, 288, 311));
+	setTexture(TextureLoader::getTexture(TextureData::TID_ZOMBIE));
+	setTextureRect(sf::IntRect(0, 311, 288, 311));
 	initHitBox();
 	alignCenter();
 }
@@ -53,40 +55,10 @@ void Zombie::update(float deltaTime)
 		return;
 	}
 
-	mAnimation->update(deltaTime);
+	mAnimations->update(deltaTime);
 
-	mAttackDelay += deltaTime;
-
-	if (mPlayer)
-	{
-		sf::Vector2f direction = mPlayer->getPosition() - getPosition();
-		direction = GameMath::normalize(direction);
-
-		float angle = std::atan2(direction.y, direction.x) * 180 / GameMath::PI;
-
-		move(mSpeed * direction * deltaTime);
-		setRotation(angle);
-
-		if (GameMath::isColliding(getGlobalBounds(), mPlayer->getGlobalBounds()) && mAttackDelay >= 1.0f)
-		{
-			mAttackDelay = 0.0f;
-			mPlayer->takeDamage(damage());
-		}
-	}
-
-	std::unordered_set<GameObject*> otherZombies = GameObjectHandler::getByID(ZOMBIE);
-	for (auto& otherZombie : otherZombies)
-	{
-		if (this == otherZombie) continue;
-		sf::Vector2f direction = otherZombie->getPosition() - getPosition();
-		float distance = sqrt(direction.x * direction.x + direction.y + direction.y);
-
-		if (distance < OVERLAPPING_THRESHOLD)
-		{
-			direction = GameMath::normalize(direction);
-			move(direction * (OVERLAPPING_FACTOR) * deltaTime);
-		}
-	}
+	handlePlayerCollision(deltaTime);
+	handleZombieCollision(deltaTime);
 
 	GameObject::update(deltaTime);
 }
@@ -114,4 +86,63 @@ float Zombie::damage()
 void Zombie::setPlayer(Player* player)
 {
 	mPlayer = player;
+}
+
+void Zombie::handlePlayerCollision(float deltaTime)
+{
+	mAttackDelay += deltaTime;
+
+	if (mPlayer)
+	{
+		sf::Vector2f direction = mPlayer->getPosition() - getPosition();
+		direction = GameMath::normalize(direction);
+
+		float angle = std::atan2(direction.y, direction.x) * 180 / GameMath::PI;
+
+		move(mSpeed * direction * deltaTime);
+		setRotation(angle);
+
+		if (mState == ZS_ATTACKING && mAttackDelay >= 0.5f)
+		{
+			mState = ZS_WALKING;
+			playWalkingAnimation();
+		}
+
+		if (GameMath::isColliding(hitbox(), mPlayer->hitbox()) && mAttackDelay >= 0.5f)
+		{
+			mState = ZS_ATTACKING;
+			playPunchAnimation();
+			mAttackDelay = 0.0f;
+			mPlayer->takeDamage(damage());
+		}
+	}
+}
+
+void Zombie::handleZombieCollision(float deltaTime)
+{
+	std::unordered_set<GameObject*> otherZombies = GameObjectHandler::getByID(ZOMBIE);
+	for (auto& otherZombie : otherZombies)
+	{
+		if (this == otherZombie) continue;
+		sf::Vector2f direction = otherZombie->getPosition() - getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y + direction.y);
+
+		if (distance < OVERLAPPING_THRESHOLD)
+		{
+			direction = GameMath::normalize(direction);
+			move(direction * (OVERLAPPING_FACTOR)*deltaTime);
+		}
+	}
+}
+
+void Zombie::playWalkingAnimation()
+{
+	mAnimations->setRow(1);
+	mAnimations->setFrameCount(15);
+}
+
+void Zombie::playPunchAnimation()
+{
+	mAnimations->setRow(0);
+	mAnimations->setFrameCount(7);
 }

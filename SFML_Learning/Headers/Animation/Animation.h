@@ -4,8 +4,11 @@
  
 class Animation {
 public:
-	Animation(sf::Sprite& sprite, int frameCount, float frameDuration, int width, int height);
+	Animation(sf::Sprite& sprite, int frameCount, float frameDuration, int startingRow, int width, int height);
 	void update(float deltaTime);
+	void setRow(int row);
+	void setFrameCount(int frameCount);
+	void setFrameDuration(float frameDuration);
 
 private:
 	sf::Sprite& mSprite;
@@ -13,6 +16,7 @@ private:
 	float mFrameDuration;
 	int mCurrentFrame;
 	float mDuration;
+	int mRow;
 	int mWidth;
 	int mHeight;
 };
