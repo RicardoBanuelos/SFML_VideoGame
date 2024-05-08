@@ -47,6 +47,7 @@ void GameObject::release()
 {
 	mReleased = true;
 }
+
 void GameObject::unRelease()
 {
 	mReleased = false;

@@ -6,6 +6,7 @@
 namespace TextureData {
 
 	enum TextureID {
+		TID_PLAYER,
 		TID_PLAYER_IDLE,
 		TID_BULLET,
 		TID_ZOMBIE,
@@ -14,6 +15,7 @@ namespace TextureData {
 	};
 
 	const std::unordered_map<TextureID, std::string> texturePaths = {
+		{TID_PLAYER, "Assets/Player/player_2.png"},
 		{TID_PLAYER_IDLE, "Assets/Player/player.png"},
 		{TID_BULLET, "Assets/Bullet/bullet.png"},
 		{TID_ZOMBIE, "Assets/Zombie/zombie.png"},

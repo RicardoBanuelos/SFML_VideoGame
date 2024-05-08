@@ -2,10 +2,8 @@
 
 #include "GameObject/GameObject.h"
 
+#include "Animation/Animation.h"
 #include "Weapons.h"
-#include "Bullet/Bullet.h"
-
-#include <vector>
 
 class Player : public GameObject
 {
@@ -21,10 +19,21 @@ public:
 	void takeDamage(float damage);
 	float health();
 private:
+	enum PlayerState {
+		PS_WALKING,
+		PS_SHOOTING,
+	};
+
 	void checkKeyInput(float deltaTime);
 	void rotate();
 	void shoot(float deltaTime);
 
+	void playWalkingAnimation();
+	void playShootingAnimation();
+
+	PlayerState mState;
+
+	Animation* mAnimations;
 	sf::Vector2f getWeaponOffsetPosition(WeaponID weapon);
 	sf::RectangleShape mBulletStartPoint;
 

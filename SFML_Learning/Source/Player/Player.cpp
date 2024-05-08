@@ -11,7 +11,7 @@
 #include "GameObject/GameObjectHandler.h"
 #include "GameObject/GameObjectBuilder.h"
 
-#include "TextureLoader/TextureLoader.h"
+#include "Bullet/Bullet.h"
 
 Player::Player(sf::Vector2f position)
 	:	GameObject(position),
@@ -25,17 +25,24 @@ Player::~Player()
 
 void Player::init()
 {
+	mState = PS_WALKING;
 	mID = PLAYER;
 	mSpeed = 1000.0f;
-	setTexture(TextureLoader::getTexture(TextureData::TID_PLAYER_IDLE));
+
+	setTexture(TextureLoader::getTexture(TextureData::TID_PLAYER));
+	setTextureRect(sf::IntRect(0, 0, 253, 216));
 	initHitBox();
 	alignCenter();
+
+	mAnimations = new Animation(*this, 1, 100.0f, 0, 253, 216);
 }
 
 void Player::update(float deltaTime)
 {
 	checkKeyInput(deltaTime);
 	rotate();
+
+	mAnimations->update(deltaTime);
 
 	mBulletStartPoint.setPosition(getWeaponOffsetPosition(HANDGUN));
 	shoot(deltaTime);
@@ -105,13 +112,36 @@ void Player::shoot(float deltaTime)
 	static float accumTime = 0;
 	accumTime += deltaTime;
 
+	if (mState == PS_SHOOTING && accumTime >= 0.25f)
+	{
+		mState = PS_WALKING;
+		playWalkingAnimation();
+	}
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && accumTime >= 0.25f)
 	{
 		accumTime = 0; 
 
+		mState = PS_SHOOTING;
+		playShootingAnimation();
+
 		Bullet* bullet = GameObjectBuilder::buildBullet(mBulletStartPoint.getPosition(), getRotation());
 		GameObjectHandler::addGameObject(BULLET, bullet);
 	}
+}
+
+void Player::playWalkingAnimation()
+{
+	mAnimations->setRow(0);
+	mAnimations->setFrameCount(1);
+	mAnimations->setFrameDuration(100.0f);
+}
+
+void Player::playShootingAnimation()
+{
+	mAnimations->setRow(1);
+	mAnimations->setFrameCount(3);
+	mAnimations->setFrameDuration(0.083f);
 }
 
 sf::Vector2f Player::getWeaponOffsetPosition(WeaponID weapon)
