@@ -122,7 +122,7 @@ void Player::handleReloading(float deltaTime)
 	{
 		mState = PS_WALKING;
 		mReloadingTimer = 0.0;
-		mBulletCount = 4;
+		mBulletCount = 12;
 		std::cout << "Walking Animation" << std::endl;
 		playWalkingAnimation();
 	}

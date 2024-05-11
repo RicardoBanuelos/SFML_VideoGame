@@ -12,10 +12,13 @@
 
 #include "ObjectPool/ObjectPoolHandler.h"
 
+Game::GameState Game::mGameState = Game::GameState::MAIN_MENU;
+
 Game::Game()
-	: mSettings(0, 0, 10),
-	mWindow(new sf::RenderWindow(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, mSettings)),
-	mCamera(mWindow->getSize().x, mWindow->getSize().y)
+	:	mSettings(0, 0, 10),
+		mWindow(new sf::RenderWindow(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, mSettings)),
+		mCamera(mWindow->getSize().x, mWindow->getSize().y),
+		mMainMenu(new MainMenu(*mWindow))
 {
 	mWindow->setVerticalSyncEnabled(true);
 	GameObjectHandler::setPlayer(new Player(sf::Vector2f(1920 / 2, 1080 / 2)));
@@ -23,6 +26,18 @@ Game::Game()
 	Player* player = GameObjectHandler::getPlayer();
 
 	Zombie* zombie = GameObjectBuilder::buildZombie(sf::Vector2f(100, 100), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(200, 200), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(300, 300), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(400, 400), player);
+	GameObjectHandler::addGameObject(ZOMBIE, zombie);
+
+	zombie = GameObjectBuilder::buildZombie(sf::Vector2f(500, 500), player);
 	GameObjectHandler::addGameObject(ZOMBIE, zombie);
 }
 
@@ -41,8 +56,6 @@ void Game::run()
 
 		update(deltaTime);
 		draw();
-
-		mWindow->setView(mCamera.getView());
 	}
 }
 
@@ -50,14 +63,41 @@ void Game::update(float deltaTime)
 {
 	pollEvents();
 	MousePosition::update(*mWindow);
-	GameObjectHandler::update(deltaTime);
-	mCamera.follow(GameObjectHandler::getPlayer()->getPosition());
+
+	switch (mGameState)
+	{
+		case MAIN_MENU:	
+			mMainMenu->update(deltaTime);
+			break;
+		case PLAYING:
+			GameObjectHandler::update(deltaTime);
+			mCamera.follow(GameObjectHandler::getPlayer()->getPosition());
+			mWindow->setView(mCamera.getView());
+			break;
+		case EXIT:
+			mWindow->close();
+			break;
+		default:
+			break;
+	}
 }
 
 void Game::draw()
 {
 	mWindow->clear(sf::Color::Black);
-	GameObjectHandler::draw(*mWindow);
+
+	switch (mGameState)
+	{
+		case MAIN_MENU:
+			mMainMenu->draw(*mWindow);
+			break;
+		case PLAYING:
+			GameObjectHandler::draw(*mWindow);
+			break;
+		default:
+			break;
+	}
+
 	mWindow->display();
 }
 
@@ -81,4 +121,14 @@ void Game::pollEvents()
 				break;
 		}
 	}
+}
+
+void Game::setState(GameState state)
+{
+	mGameState = state;
+}
+
+Game::GameState Game::state()
+{
+	return mGameState;
 }

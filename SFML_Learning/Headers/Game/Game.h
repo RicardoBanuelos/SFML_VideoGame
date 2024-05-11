@@ -2,10 +2,22 @@
 
 #include <SFML/Graphics.hpp>
 #include "Camera/Camera.h"
+#include "MainMenu/MainMenu.h"
 
 class Game
 {
 public:
+	enum GameState {
+		MAIN_MENU,
+		PLAYING,
+		GAME_OVER,
+		PAUSED,
+		EXIT,
+	};
+
+	static void setState(GameState state);
+	static GameState state();
+
 	Game();
 	~Game();
 
@@ -21,4 +33,7 @@ private:
 	sf::RenderWindow* mWindow;
 
 	Camera mCamera;
+
+	static GameState mGameState;
+	MainMenu* mMainMenu;
  };
