@@ -57,10 +57,13 @@
     <ClCompile Include="Source\Animation\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MainMenu\MainMenu.cpp">
+    <ClCompile Include="Source\Screens\MainMenu\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Widgets\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\GameOver\GameOver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,10 +127,13 @@
     <ClInclude Include="Headers\Animation\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\MainMenu\MainMenu.h">
+    <ClInclude Include="Headers\Screens\MainMenu\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Widgets\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Screens\GameOver\GameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

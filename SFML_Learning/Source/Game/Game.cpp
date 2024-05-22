@@ -18,7 +18,8 @@ Game::Game()
 	:	mSettings(0, 0, 10),
 		mWindow(new sf::RenderWindow(sf::VideoMode(1280, 720), "RPG Game", sf::Style::Default, mSettings)),
 		mCamera(mWindow->getSize().x, mWindow->getSize().y),
-		mMainMenu(new MainMenu(*mWindow))
+		mMainMenu(new MainMenu(*mWindow)),
+		mGameOver(new GameOver(*mWindow))
 {
 	mWindow->setVerticalSyncEnabled(true);
 	GameObjectHandler::setPlayer(new Player(sf::Vector2f(1920 / 2, 1080 / 2)));
@@ -74,6 +75,9 @@ void Game::update(float deltaTime)
 			mCamera.follow(GameObjectHandler::getPlayer()->getPosition());
 			mWindow->setView(mCamera.getView());
 			break;
+		case GAME_OVER:
+			mGameOver->update(deltaTime);
+			break;
 		case EXIT:
 			mWindow->close();
 			break;
@@ -93,6 +97,9 @@ void Game::draw()
 			break;
 		case PLAYING:
 			GameObjectHandler::draw(*mWindow);
+			break;
+		case GAME_OVER:
+			mGameOver->draw(*mWindow);
 			break;
 		default:
 			break;

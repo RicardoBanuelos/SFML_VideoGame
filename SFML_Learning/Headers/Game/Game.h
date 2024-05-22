@@ -2,7 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Camera/Camera.h"
-#include "MainMenu/MainMenu.h"
+#include "Screens/MainMenu/MainMenu.h"
+#include "Screens/GameOver/GameOver.h"
 
 class Game
 {
@@ -36,4 +37,5 @@ private:
 
 	static GameState mGameState;
 	MainMenu* mMainMenu;
+	GameOver* mGameOver;
  };
