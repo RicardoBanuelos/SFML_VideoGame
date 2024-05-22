@@ -81,7 +81,11 @@ float Player::health()
 void Player::checkKeyInput(float deltaTime)
 {
 	sf::Vector2f direction;
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && mBulletCount < 12)
+	{
+		mState = PS_RELOADING;
+		playReloadingAnimation();
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		direction.y = -1;
