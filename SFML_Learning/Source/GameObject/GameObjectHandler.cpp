@@ -8,12 +8,20 @@
 
 #include "Zombie/Zombie.h"
 
+#include "Game/Game.h"
+
 std::map<ID, std::unordered_set<GameObject*>> GameObjectHandler::mGameObjects;
 std::map<ID, std::vector<GameObject*>> GameObjectHandler::mReleasedObjects;
 Player* GameObjectHandler::mPlayer = nullptr;
 
 void GameObjectHandler::update(float deltaTime)
 {
+	if (mPlayer->health() == 0)
+	{
+		Game::setState(Game::GAME_OVER);
+		return;
+	}
+
 	mPlayer->update(deltaTime);
 
 	for (auto&& [id, objectSet] : mGameObjects)

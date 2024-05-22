@@ -69,6 +69,7 @@ void Game::update(float deltaTime)
 	{
 		case MAIN_MENU:	
 			mMainMenu->update(deltaTime);
+			mWindow->setView(mWindow->getDefaultView());
 			break;
 		case PLAYING:
 			GameObjectHandler::update(deltaTime);
@@ -93,12 +94,14 @@ void Game::draw()
 	switch (mGameState)
 	{
 		case MAIN_MENU:
+			mWindow->setView(mWindow->getDefaultView());
 			mMainMenu->draw(*mWindow);
 			break;
 		case PLAYING:
 			GameObjectHandler::draw(*mWindow);
 			break;
 		case GAME_OVER:
+			mWindow->setView(mWindow->getDefaultView());
 			mGameOver->draw(*mWindow);
 			break;
 		default:
